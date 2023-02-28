@@ -1,0 +1,323 @@
+/* Navbar */
+.cf-navbar{
+  padding: 1% 7% !important;
+}
+
+.brandTitle{
+  color: red !important;
+  font-family: 'Bebas Neue', cursive;
+  font-size: 2.5rem !important;
+}
+
+.nav-link{
+  padding-left: 25px !important;
+  font-weight: bold !important;
+}
+
+.nav-link:hover{
+  color: red !important;
+}
+
+/* SafetyTips */
+
+.cf-safetyTips{
+  padding: 2% 6% !important;
+  background-color: #FFF38C;
+}
+
+.cf-safetyTips ul li{
+  border: none !important;
+  font-weight: bold;
+}
+
+.cf-safetyTips h1{
+  color: red;
+  font-family:'Bebas Neue', cursive ;
+  font-size: 4rem !important;
+  background-color: #F0E161;
+}
+
+.coneIcon{
+  color: red;
+  font-size: 1.5rem;
+}
+
+/* Shop */
+
+.cf-shop{
+  padding: 0% !important;
+}
+
+.bannerImg{
+  width: 100%;
+  margin: 0% !important;
+}
+
+.cf-products{
+  padding: 1% 7% !important;
+}
+
+.valueBox{
+  /* width: 50% !important; */
+  padding: 0.375rem !important;
+}
+
+.strike{
+  text-decoration:line-through;
+  text-decoration-color: #ff0000 !important;
+  text-decoration-thickness: 2px !important;
+}
+
+.cf-billBoard{
+  background-color:yellow !important;
+}
+
+.billBoard{
+  padding: 0% 7% !important;
+}
+
+.categHead{
+  text-align: center;
+  text-transform: uppercase;
+  padding: 5px;
+  color: white;
+}
+
+.categDiv{
+  background-color:red;
+}
+
+
+/* Index */
+
+.cf-carousel{
+  padding: 0% !important;
+  margin: 0% !important;
+}
+
+
+.cf-features{
+  text-align: center;
+  background-color: lightyellow;
+  padding: 5% !important;
+}
+
+.icons{
+  color: blueviolet;
+  font-size: 8rem !important;
+}
+
+.iconTags{
+  font-family: 'Bebas Neue', cursive;
+}
+
+.cf-selfIntro{
+  background-color: #EEEEEE;
+  padding: 5% !important;
+  text-align: center;
+}
+
+.introH1{
+  padding-bottom: 3% !important;
+  color: blueviolet;
+  font-family:'Bebas Neue', cursive;
+}
+
+.cf-shopp{
+  background-image: url('/images/banner4.jpg');
+  background-size: cover;
+  background-position: fixed;
+}
+
+.shopLink{
+  padding: 5% 5% 2% !important;
+  font-size: 3rem;
+
+}
+
+.cf-shopp{
+  text-align: center;
+  color: white;
+  padding: 5%;
+}
+
+/* Footer */
+
+.cf-footer{
+  background-image: url('/images/banner5.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.cf-footer p{
+  color: white;
+  text-align: left;
+  padding: 5% 8% !important;
+}
+
+.footer1{
+  padding: 2% 6% 0% !important;
+  text-align: center;
+}
+
+.footer1 h4{
+  color: yellow !important;
+  font-weight: bolder;
+}
+
+.ulLists li{
+  list-style: none;
+  font-size: 1.1rem;
+  padding-left: 0px;
+  padding-top: 6px !important;
+}
+
+.ulLists span{
+  color: yellow;
+  font-weight: bold;
+}
+
+.footer1 ul li{
+  padding-top: 12px;
+  color: white;
+}
+
+.footer1 ul li a{
+  color: white;
+  text-decoration: none;
+}
+
+.footer ul li:hover{
+  color: yellow !important;
+}
+
+.iccon{
+  color: yellow;
+}
+
+.footerLastDiv{
+  background-color:darkblue;
+  padding: 10px !important;
+  
+}
+
+.footerLastDiv p{
+  padding: 5px !important;
+  text-align: center !important;
+}
+
+.footerLastDiv a{
+  color: yellow !important;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.footerLastDiv a:hover{
+  color: white !important;
+}
+
+/* success page */
+
+.cf-success{
+  padding: 5% !important;
+  text-align: center;
+  min-height: 300px;
+}
+
+.productImg{
+  width: 100px !important;
+  min-height: 75px !important;
+}
+
+/* ControlPage */
+.cf-controls{
+  padding: 2% 7% !important;
+  text-align: center;
+}
+
+.cf-productsList{
+  padding: 2% 7% !important;
+}
+
+/* Media Queries */
+
+@media (max-width : 768px){
+  .brandTitle{
+    font-size: 2rem !important;
+  }
+
+  .cf-products .table thead{
+    display: none;
+  }
+
+  .img-fluid{
+    height: 170px !important;
+  }
+
+  .icons{
+    font-size: 3rem !important;
+  }
+
+  .shopLink{
+    font-size: 1.5rem !important;
+  }
+
+  .cf-shopp{
+    padding-bottom: 8% !important;
+  }
+
+  .cf-products .table, .table tbody, .table  tr, .table td{
+    display: block;
+    width: 100% !important;
+  }
+
+  .cf-products .table tr{
+    margin-bottom: 15px;
+    border-radius: 15px;
+  }
+
+  .cf-products .table tr td{
+    text-align: right;
+    padding-left: 50%;
+    position: relative;
+    background-color: #f5ef28eb;
+  }
+
+  .cf-products .table td:before{
+    content: attr(data-label);
+    position: absolute;
+    left: 0;
+    width: 50%;
+    padding-left: 15px;
+    font-weight: 600;
+    font-size: 14px;
+    text-align: left;
+    vertical-align: middle !important;
+  }
+
+  .billBoard h3{
+    font-size: 1.2rem;
+  }
+
+  .mobile-hidden{
+    display: none !important;
+  }
+
+  .mobile-display{
+    color:black;
+    font-weight: bold;
+  }
+
+  .valueBox{
+    width: 50% !important;
+    text-align: left !important;
+    display: inline-block !important;
+  }
+
+  .productImg{
+    width: 100px !important;
+    height: 75px !important;
+  }
+
+}
+

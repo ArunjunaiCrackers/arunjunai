@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Details</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            border:0;
+        }
+
+        body{
+            font-size: 19px;
+            max-width: 800px;
+            margin:0 auto;
+            padding: 3%;
+            background-color: #d8dada;
+        }
+
+        header{
+            width: 98%;
+        }
+
+        .column {
+            float:left;
+            width: 33.33%;
+        }
+
+        #wrapper{
+            background-color: #f0f6fb;
+        }
+
+        hr{
+            height: 1px;
+            background-color: #303840;
+            clear: both;
+            width: 96%;
+        }
+
+          /* Clear floats after the columns */
+          .row:after {
+            content: "";
+            display: table;
+            clear: both;
+          }
+
+          .halfColumn{
+            float: left;
+            width: 50%;
+          }
+
+          .fullColumn{
+            width: 100%;
+          }
+
+          p{
+            margin: 0;
+            padding: 0;
+          }
+
+    </style>
+</head>
+<body>
+    <!-- First Column -->
+    <section id="wrapper">
+        <div>
+                <div class="column">
+                    <h5>Order Date</h5>
+                </div>
+                <div class="column">
+                    <h3>ESTIMATE</h3>
+                </div>
+                <div class="column">
+                    <h5>Order Date</h5>
+                </div>
+        </div>
+    </section>
+    <!-- Second Column -->
+    <section id="wrapper">
+        <div>
+         
+                <div class="column">
+                    <h4 style="padding: 20px;">Mobile: 8489383895</h4>
+                </div>
+                <div class="column">
+                    <h2 style="padding-top: 5px;">ARUNJUNAI CRACKERS</h2> 
+                    <h6>No. 27, Vallalar North Street, Sivakasi.</h6>
+                </div>
+                <div class="column">
+                    <h4 style="padding: 5px 20px 0px 20px;">Email</h4>
+                    <h5>arunjunaicrackers@gmail.com</h5>
+                </div>
+            
+        </div>
+    </section>
+    <!-- Customer Details -->
+    <section id="wrapper">
+        <div class="container">
+            
+                <div class="halfColumn">
+                    <h1 style="padding-top: 10px;">Customer Details</h1>
+                    <h3>asdf</h3>
+                    <h3>adfsdf</h3>
+                    <h3>sdfsd</h3>
+                    <h4>asd</h4>
+                </div>
+                <div class="halfColumn">
+                    <h1 style="padding-top: 10px;">Bank Details</h1>
+                    <table class="table">
+         
+                        <tbody>
+                          <tr>
+                            <th scope="col">Account Name</th>
+                            <td>Arunjunai Crackers</td>
+                          </tr>
+              
+                          <tr>
+                            <th scope="col">Account Number</th>
+                            <td>455545554555454</td>
+                          </tr>
+                          <tr>
+                            <th scope="col">Account Type</th>
+                            <td>Current Account</td>
+                          </tr>
+                          <tr>
+                            <th scope="col">Bank Name</th>
+                            <td>TMB Bank</td>
+                          </tr>              
+                          <tr>
+                            <th scope="col">Packing Charge</th>
+                            <td><p style="margin-bottom: 0px;" id="pckCharge"></p></td>
+                            <input type="hidden" name="pckChargeVal" id="pckChargeVal" value>
+                          </tr>
+                          <tr>
+                            <th scope="col">IFSC Code</th>
+                            <td>TMBL00005455</td>
+                          </tr>
+              
+                        </tbody>
+                      </table>
+                </div>
+            
+        </div>
+    </section>
+    
+</body>
+</html>
+
+

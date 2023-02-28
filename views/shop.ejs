@@ -1,0 +1,264 @@
+<%- include ("partials/header") %>
+
+<div class="container-fluid cf-shop">
+    <div class="row">
+        <div class="col-md-12 col-12">
+            <img src="images/banner 2.jpg" alt="" class="bannerImg">
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid sticky-top cf-billBoard pt-5 pt-md-2">
+  <div class="row billBoard">
+    
+      <div class="col-md-4 col-4">
+        <h3>Items : <span id="totalProducts"></span></h3>
+      </div>
+      <div class="col-md-4 col-4">
+        <h3>Savings : <span id="discountTotal"></span></h3>
+      </div>
+      <div class="col-md-4 col-4">
+        <h3>Bill Value : <span id="overallTotal"></span></h3>
+      </div>
+    
+  </div>
+</div>
+
+<div class="container-fluid cf-products">
+  <form action="/addProducts" method="post">
+    <div class="row">
+      
+            <div class="col-md-12">
+              <div class="categDiv">
+                <h5 class="categHead">Price List</h5>
+              </div>
+              <div class="col-md-12 col-12 table-striped table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Product</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Type</th>
+                      <th scope="col">Content</th>
+                      <th scope="col">Actual Price</th>
+                      <th scope="col">Amount</th>
+                      <th scope="col">Quantity</th>
+                      <th scope="col">Total</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                   
+                   
+
+                   <% products.forEach((product,index) => { %>
+                    
+                     <% if (product.availability) { %>
+                    
+                   
+                    <tr>
+                      <td data-label="Product" class="mobile-display">
+                        
+                        
+                        <!-- Button trigger modal -->
+                        <a type="button" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#exampleModal-<%=product._id%>">
+                          <img class="img-fluid productImg" src="<%= product.imagePath %>" alt="">
+                        </a>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal-<%=product._id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close btn" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <img src="<%=product.imagePath%>" alt="" style="width:100%">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+                      </td>
+                      <td data-label="Name" class="mobile-display"><%= product.name %></td>
+                      <td data-label="Type" class="mobile-hidden"><%= product.type %></td>
+                      <td data-label="Content" class="mobile-hidden"><%= product.content %></td>
+                      <td data-label="Actual Price"><h6 class="strike">&#8377;<%= product.actualPrice %></h6></td>
+                      <td data-label="Amount" class="mobile-display">&#8377;<%= product.discountPrice %></td>
+
+                      <input type="hidden" name="actualValue" id="actualValue_<%=index%>" value="<%= product.actualPrice %>">
+                      <input type="hidden" name="priceValue" id="priceValue_<%=index%>" value="<%= product.discountPrice %>">
+                      <input type="hidden" name="actSubTotal" id="actSubTotal_<%=index%>" value>
+                      <input type="hidden" name="ids" id="ids" value="<%=product._id%>">
+                      <input type="hidden" name="name" id="name" value="<%=product.name%>">
+                      <input type="hidden" name="type" id="type" value="<%=product.type%>">
+                      <input type="hidden" name="aPrice" id="aPrice" value="<%=product.actualPrice%>">
+                      <input type="hidden" name="dPrice" id="dPrice" value="<%=product.discountPrice%>">
+                      <input type="hidden" name="content" id="content" value="<%=product.content%>">
+                  
+                      <td data-label="Quantity" style="width:10%;"><input type="text" inputmode="numeric" class="form-control valueBox qty quantity" value min="0" name="qty" defaultValue=0 id="qty" onchange="doMath('<%=index%>')" placeholder="Qty"></td>
+                      <td data-label="Total" style="width:10%;"><input type="number" class="form-control valueBox total" id="tempTotal_<%=index%>" value disabled ></td>
+                    </tr>
+                  
+                    <% } %>
+                   <% }) %>
+
+                 
+                 
+                    
+                  </tbody>
+              </table>
+              </div>
+               
+            </div>
+           
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="mb-3">
+          <input type="text" pattern="[A-Za-z ]{1,32}" class="form-control"  name="partyName"  id="partyName" required placeholder="Name">
+        </div>
+        <div class="mb-3">
+          <input pattern="[6789][0-9]{9}" type="text" class="form-control" name="partyMob" id="partyMob" required placeholder="Contact">
+        </div>
+        <div class="mb-3">
+          <input type="email" class="form-control" name="partyEmail" id="partyEmail" required placeholder="Email">
+        </div>
+        <div class="mb-3">
+          <textarea class="form-control" id="partyAddress" name="partyAddress" rows="3" required placeholder="Address"></textarea>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <table class="table" style="text-align: right; padding: 2rem 5rem !important;">
+         
+          <tbody>
+            <tr>
+              <th scope="col">Net Total</th>
+              <td><p style="margin-bottom: 0px;" id="overallTotall"></p></td>
+              <input type="hidden" name="overallTotalVal" id="overallTotalVal" value>
+            </tr>
+
+            <tr>
+              <th scope="col">Discount Total</th>
+              <td><p style="margin-bottom: 0px;" id="discountTotall"></p></td>
+              <input type="hidden" name="discountTotalVal" id="discountTotalVal" value>
+            </tr>
+
+            <tr>
+              <th scope="col">Sub Total</th>
+              <td><p style="margin-bottom: 0px;" id="subTotall"></p></td>
+              <input type="hidden" name="subTotalVal" id="subTotalVal" value>
+            </tr>
+
+            <tr>
+              <th scope="col">Min Order Value</th>
+              <td><p style="margin-bottom: 0px; color: red; font-weight: bold;">&#8377; 1,000.00</p></td>
+            </tr>
+
+            <tr>
+              <th scope="col">Packing Charge</th>
+              <td><p style="margin-bottom: 0px;" id="pckCharge"></p></td>
+              <input type="hidden" name="pckChargeVal" id="pckChargeVal" value>
+            </tr>
+
+            <tr>
+              <th scope="col">Overall Total</th>
+              <td><p style="margin-bottom: 0px;" id="finalBillValue"></p></td>
+              <input type="hidden" name="finalBillValuee" id="finalBillValuee" value>
+            </tr>
+
+            <tr>
+              <th></th>
+              <td><button type="submit" style="text-align:right;" id="submitButton" disabled class="btn btn-sm btn-warning">Submit</button></td>
+            </tr>
+
+          </tbody>
+        </table>
+        
+      </div>
+    </div>
+
+    
+    
+  </form>
+</div>
+  
+<%- include ("partials/footer") %>
+
+<script>
+  function doMath(i) {
+
+    var quantities = document.getElementsByClassName('quantity');
+   
+    // To calculate row wise subtotal and actual price
+    var numOne = document.getElementById('priceValue_'+i).value;
+    var numTwo = quantities[i].value;
+    var numThree = document.getElementById('actualValue_'+i).value;
+    var discValue = Number(numOne) * Number(numTwo);
+    var actValue = Number(numThree) * Number(numTwo);
+    console.log("Act value :" + actValue);
+    document.getElementById('tempTotal_'+i).value = discValue;
+    document.getElementById('actSubTotal_'+i).value = actValue;
+
+    var netTotalValues = 0;
+    for(i=0; i<151;i++){
+      Math.round(netTotalValues += Number(document.getElementById('actSubTotal_'+i).value));
+    }
+    console.log('NetTotalValues :' + netTotalValues);
+    document.getElementById('overallTotall').innerHTML =  "&#8377;" + netTotalValues;
+    document.getElementById('overallTotalVal').value = netTotalValues;
+    
+    // To Calculate Total Order Value
+    var tempSum = 0;
+    for(i=0; i<151;i++){
+      Math.round(tempSum += Number(document.getElementById('tempTotal_'+i).value));
+    }
+    // document.getElementById('totalBillValue').value = tempSum.toFixed(2);
+    document.getElementById('overallTotal').innerHTML =  "&#8377;" + tempSum.toFixed(2);
+    document.getElementById('subTotall').innerHTML =  "&#8377;" + tempSum.toFixed(2);
+    document.getElementById('subTotalVal').value =  tempSum.toFixed(2);
+
+    var pckCharg = tempSum * 0.03;
+    document.getElementById('pckCharge').innerHTML="&#8377;" + pckCharg.toFixed(2);
+    document.getElementById('pckChargeVal').value= pckCharg.toFixed(2);
+    
+    var finalBillValue = tempSum + pckCharg;
+    document.getElementById('finalBillValue').innerHTML="&#8377;" + Math.round(finalBillValue);
+    document.getElementById('finalBillValuee').value= Math.round(finalBillValue);
+
+    if(finalBillValue >= 1000){
+      document.getElementById('submitButton').disabled = false;
+    }
+    else {
+      document.getElementById('submitButton').disabled = true;
+    }
+
+    // To calculate total products quantity
+    var tempQty = 0;
+    for(i=0; i<151;i++){
+      tempQty += Number(quantities[i].value);
+    }
+    document.getElementById('totalProducts').innerHTML =  tempQty;
+
+    // To Calculate the discount amount
+    var originalPrice=0;
+    var discPrice=0;
+
+    for(i=0;i<151;i++){
+      originalPrice += Number(document.getElementById('actSubTotal_'+i).value);
+      discPrice += Number(document.getElementById('tempTotal_'+i).value);
+    }
+    var discountedValue = originalPrice - discPrice;
+    document.getElementById('discountTotal').innerHTML = "&#8377;" + discountedValue.toFixed(2);
+    document.getElementById('discountTotall').innerHTML = "&#8377;" + discountedValue.toFixed(2);
+    document.getElementById('discountTotalVal').value = discountedValue.toFixed(2);
+    }
+
+    
+</script>
