@@ -198,11 +198,12 @@ router.get('/productsControl', function(req,res,next){
   })
 })
 
-router.post('/update/:id', function(req,res,next){
+router.post('/update/:id', upload.single('prodImage'), function(req,res,next){
   var id = req.params.id;
   Products.updateOne(
     {_id:id},
     {$set: {
+      imagePath : req.file.path.slice(6),
       name: req.body.newName,
       content: req.body.newContent,
       actualPrice: req.body.newActualPrice,

@@ -100,11 +100,12 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <form action="/update/<%=product._id%>" method="post">
+                                            <form action="/update/<%=product._id%>" method="post"  enctype="multipart/form-data">
                                                 <input type="text" class="input-group" name="newName" id="newName" value="<%=product.name%>"> <br>
                                                 <input type="text" class="input-group" name="newContent" id="newContent" value="<%=product.content%>"> <br>
                                                 <input type="text" class="input-group" name="newActualPrice" id="newActualPrice" value="<%=product.actualPrice%>"> <br>
                                                 <input type="text" class="input-group" name="newDiscountPrice" id="newDiscountPrice" value="<%=product.discountPrice%>"><br>
+                                                <input type="file" class="form-control" name="prodImage" id="prodImage" required >
                                                 <button type="submit" class="btn btn-sm btn-primary">Update</button>
                                             </form>
                                         </div>
