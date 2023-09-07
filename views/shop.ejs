@@ -91,6 +91,7 @@
                       <td data-label="Actual Price"><h6 class="strike">&#8377;<%= product.actualPrice %></h6></td>
                       <td data-label="Amount" class="mobile-display">&#8377;<%= product.discountPrice %></td>
 
+                      <input type="hidden" name="prodLength" id="prodLength" value="<%= prodLength %>">
                       <input type="hidden" name="actualValue" id="actualValue_<%=index%>" value="<%= product.actualPrice %>">
                       <input type="hidden" name="priceValue" id="priceValue_<%=index%>" value="<%= product.discountPrice %>">
                       <input type="hidden" name="actSubTotal" id="actSubTotal_<%=index%>" value>
@@ -194,8 +195,8 @@
 <script>
   function doMath(i) {
 
-    var quantities = document.getElementsByClassName('quantity');
-   
+    var quantities = document.getElementsByClassName('qty');
+    var prodLength = document.getElementById('prodLength').value;
     // To calculate row wise subtotal and actual price
     var numOne = document.getElementById('priceValue_'+i).value;
     var numTwo = quantities[i].value;
@@ -207,16 +208,16 @@
     document.getElementById('actSubTotal_'+i).value = actValue;
 
     var netTotalValues = 0;
-    for(i=0; i<151;i++){
+    for(i=0; i<prodLength;i++){
       Math.round(netTotalValues += Number(document.getElementById('actSubTotal_'+i).value));
     }
-    console.log('NetTotalValues :' + netTotalValues);
+    console.log('NetTotalValues :' + netTotalValues); 
     document.getElementById('overallTotall').innerHTML =  "&#8377;" + netTotalValues;
     document.getElementById('overallTotalVal').value = netTotalValues;
     
     // To Calculate Total Order Value
     var tempSum = 0;
-    for(i=0; i<151;i++){
+    for(i=0; i<prodLength;i++){
       Math.round(tempSum += Number(document.getElementById('tempTotal_'+i).value));
     }
     // document.getElementById('totalBillValue').value = tempSum.toFixed(2);
@@ -240,9 +241,10 @@
     }
 
     // To calculate total products quantity
+    var qty = document.getElementsByClassName("qty");
     var tempQty = 0;
-    for(i=0; i<151;i++){
-      tempQty += Number(quantities[i].value);
+    for(j=0; j<prodLength;j++){
+      tempQty += Number(qty[j].value);
     }
     document.getElementById('totalProducts').innerHTML =  tempQty;
 
@@ -250,7 +252,7 @@
     var originalPrice=0;
     var discPrice=0;
 
-    for(i=0;i<151;i++){
+    for(i=0;i<prodLength;i++){
       originalPrice += Number(document.getElementById('actSubTotal_'+i).value);
       discPrice += Number(document.getElementById('tempTotal_'+i).value);
     }

@@ -66,7 +66,7 @@ router.get('/shop', function(req, res, next) {
 
     let discountChange = [];
     
-    res.render('shop', { title: 'Shop | Arunjunai', products:result });
+    res.render('shop', { title: 'Shop | Arunjunai', products:result, prodLength:result.length });
   })
   
 });
