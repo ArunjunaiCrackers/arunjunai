@@ -23,12 +23,40 @@
                         </div>
                         <div class="modal-body">
                             <form action="/newProduct" method="post" enctype="multipart/form-data">
-                                <input type="text" class="form-control" name="prodName" id="prodName" placeholder="Name" value required>
-                                <input type="text" class="form-control" name="prodContent" id="prodContent" placeholder="Content" value required>
-                                <input type="text" class="form-control" name="prodType" id="prodType" placeholder="Type" value required>
-                                <input type="number" class="form-control" name="prodActPrice" id="prodActPrice" placeholder="Actual Price" value required>
-                                <input type="number" step=".01" class="form-control" name="prodDiscPrice" id="prodDiscPrice" placeholder="Discount Price" required value>
-                                <input type="file" class="form-control" name="prodImage" id="prodImage" required >
+                                <input type="text" class="form-control mb-3" name="code" id="code" placeholder="Code" value required>
+                                <input type="text" class="form-control mb-3" name="prodName" id="prodName" placeholder="Name" value required>
+                                <input type="text" class="form-control mb-3" name="prodContent" id="prodContent" placeholder="Content" value required>
+                                <select class="form-select" name="prodType">
+                                    <option selected>Select the Category</option>
+                                    <option value="SOUND CRACKERS">SOUND CRACKERS</option>
+                                    <option value="GROUND CRACKERS">GROUND CRACKERS</option>
+                                    <option value="FLOWER POTS">FLOWER POTS</option>
+                                    <option value="BIJILI CRACKERS">BIJILI CRACKERS</option>
+                                    <option value="LITTLE CRACKERS">LITTLE CRACKERS</option>
+                                    <option value="LIGHTING SERIES">LIGHTING SERIES</option>
+                                    <option value="BOMBS">BOMBS</option>
+                                    <option value="ROCKETS">ROCKETS</option>
+                                    <option value="TWINKLING STARS">TWINKLING STARS</option>
+                                    <option value="TIN FOUNTAIN">TIN FOUNTAIN</option>
+                                    <option value="PAPER BOMB">PAPER BOMB</option>
+                                    <option value="SHOWER CRACKERS">SHOWER CRACKERS</option>
+                                    <option value="HANDLE CRACKERS">HANDLE CRACKERS</option>
+                                    <option value="NEW NOVELTIES">NEW NOVELTIES</option>
+                                    <option value="V SERIES">V SERIES</option>
+                                    <option value="SPARKLERS">SPARKLERS</option>
+                                    <option value="CHOTTA FANCY">CHOTTA FANCY</option>
+                                    <option value="AERIAL FANCY">AERIAL FANCY</option>
+                                    <option value="2 FANCY">2 FANCY</option>
+                                    <option value="3 FANCY">3 FANCY</option>
+                                    <option value="3½ FANCY">3½ FANCY</option>
+                                    <option value="4 FANCY">4 FANCY</option>
+                                    <option value="4 FANCY 2 PC">4 FANCY 2 PC</option>
+                                    <option value="RESPECTING SHOTS">RESPECTING SHOTS</option>
+                                    <option value="GIFT BOX">GIFT BOX</option>
+                                  </select> <br>
+                                <input type="number" class="form-control mb-3" name="prodActPrice" id="prodActPrice" placeholder="Actual Price" value required>
+                                <input type="number" step=".01" class="form-control mb-3" name="prodDiscPrice" id="prodDiscPrice" placeholder="Discount Price" required value>
+                                <input type="file" class="form-control mb-3" name="prodImage" id="prodImage" required >
                                 <button type="submit" class="btn btn-sm btn-success">Add Product</button>
                             </form>
                         </div>

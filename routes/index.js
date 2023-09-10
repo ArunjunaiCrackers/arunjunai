@@ -290,6 +290,7 @@ router.post('/newProduct', upload.single('prodImage'), function(req,res,next){
 console.log(req.file.path.slice(6));
   var product = new Products({
     imagePath : req.file.path.slice(6),
+    code : req.body.code,
     name : req.body.prodName,
     content : req.body.prodContent,
     type : req.body.prodType,
