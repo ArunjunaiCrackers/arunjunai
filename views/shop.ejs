@@ -203,7 +203,7 @@
     var numOne = document.getElementById('priceValue_'+i).value;
     var numTwo = quantities[i].value;
     var numThree = document.getElementById('actualValue_'+i).value;
-    var discValue = Number(numOne) * Number(numTwo);
+    var discValue = Math.round(Number(numOne) * Number(numTwo));
     var actValue = Number(numThree) * Number(numTwo);
     console.log("Act value :" + actValue);
     document.getElementById('tempTotal_'+i).value = discValue;
