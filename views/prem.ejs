@@ -60,6 +60,7 @@
                     <table class="table">
                         <thead>
                           <tr>
+                            <th scope="col">Code</th>
                             <th scope="col">Name</th>
                             <th scope="col">Type</th>
                             <th scope="col">Content</th>
@@ -67,12 +68,14 @@
                             <th scope="col">Amount</th>
                             <th scope="col">Availability</th>
                             <th scope="col">Update</th>
+                            <th scope="col">Update Img</th>
                             <th scope="col">Delete</th>
                           </tr>
                         </thead>
                         <tbody>
                             <% products.forEach(product => { %>
                             <tr>
+                            <td data-label="Code" class="mobile-display"><%= product.code %></td>
                             <td data-label="Name" class="mobile-display"><%= product.name %></td>
                             <td data-label="Type" class="mobile-hidden"><%= product.type %></td>
                             <td data-label="Content" class="mobile-hidden"><%= product.content %></td>
@@ -85,6 +88,7 @@
                                  <a href="/makeAvailable/<%=product._id%>" role="button" class="btn btn-sm btn-success">Available?</a> 
                                 <% } %>
                             </td>
+                            <!-- Update Product -->
                             <td>
                                 <!-- Button trigger modal -->
                                 <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal-<%=product._id%>">
@@ -100,12 +104,68 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <form action="/update/<%=product._id%>" method="post"  enctype="multipart/form-data">
-                                                <input type="text" class="input-group" name="newName" id="newName" value="<%=product.name%>"> <br>
-                                                <input type="text" class="input-group" name="newContent" id="newContent" value="<%=product.content%>"> <br>
-                                                <input type="text" class="input-group" name="newActualPrice" id="newActualPrice" value="<%=product.actualPrice%>"> <br>
-                                                <input type="text" class="input-group" name="newDiscountPrice" id="newDiscountPrice" value="<%=product.discountPrice%>"><br>
-                                                <input type="file" class="form-control" name="prodImage" id="prodImage" required >
+                                            <form action="/update/<%=product._id%>" method="post">
+                                                <input type="text" class="form-control input-group mb-3" name="code" id="code" value="<%=product.code%>"> <br>
+                                                <input type="text" class="form-control input-group mb-3" name="newName" id="newName" value="<%=product.name%>"> <br>
+                                                <select class="form-select" name="productType">
+                                                    <option selected><%=product.type%></option>
+                                                    <option value="SOUND CRACKERS">SOUND CRACKERS</option>
+                                                    <option value="GROUND CRACKERS">GROUND CRACKERS</option>
+                                                    <option value="FLOWER POTS">FLOWER POTS</option>
+                                                    <option value="BIJILI CRACKERS">BIJILI CRACKERS</option>
+                                                    <option value="LITTLE CRACKERS">LITTLE CRACKERS</option>
+                                                    <option value="LIGHTING SERIES">LIGHTING SERIES</option>
+                                                    <option value="BOMBS">BOMBS</option>
+                                                    <option value="ROCKETS">ROCKETS</option>
+                                                    <option value="TWINKLING STARS">TWINKLING STARS</option>
+                                                    <option value="TIN FOUNTAIN">TIN FOUNTAIN</option>
+                                                    <option value="PAPER BOMB">PAPER BOMB</option>
+                                                    <option value="SHOWER CRACKERS">SHOWER CRACKERS</option>
+                                                    <option value="HANDLE CRACKERS">HANDLE CRACKERS</option>
+                                                    <option value="NEW NOVELTIES">NEW NOVELTIES</option>
+                                                    <option value="V SERIES">V SERIES</option>
+                                                    <option value="SPARKLERS">SPARKLERS</option>
+                                                    <option value="CHOTTA FANCY">CHOTTA FANCY</option>
+                                                    <option value="AERIAL FANCY">AERIAL FANCY</option>
+                                                    <option value="2 FANCY">2 FANCY</option>
+                                                    <option value="3 FANCY">3 FANCY</option>
+                                                    <option value="3½ FANCY">3½ FANCY</option>
+                                                    <option value="4 FANCY">4 FANCY</option>
+                                                    <option value="4 FANCY 2 PC">4 FANCY 2 PC</option>
+                                                    <option value="RESPECTING SHOTS">RESPECTING SHOTS</option>
+                                                    <option value="GIFT BOX">GIFT BOX</option>
+                                                  </select> <br>
+                                                <input type="text" class="form-control input-group mb-3" name="newContent" id="newContent" value="<%=product.content%>"> <br>
+                                                <input type="text" class="form-control input-group mb-3" name="newActualPrice" id="newActualPrice" value="<%=product.actualPrice%>"> <br>
+                                                <input type="text" class="form-control input-group mb-3" name="newDiscountPrice" id="newDiscountPrice" value="<%=product.discountPrice%>"><br>
+                                                <button type="submit" class="btn btn-sm btn-primary">Update</button>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <!-- Update Image -->
+                            <td>
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal1-<%=product._id%>">
+                                    Update Image
+                                </button>
+  
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModal1-<%=product._id%>" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel1">Update Image of <%=product.name%></h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="/updateImg/<%=product._id%>" method="post"  enctype="multipart/form-data">
+                                                <input type="file" class="form-control form-control mb-3" name="prodImage" id="prodImage">
                                                 <button type="submit" class="btn btn-sm btn-primary">Update</button>
                                             </form>
                                         </div>
@@ -124,7 +184,7 @@
                         </tbody>
                     </table>
                 
-               
+                    
                 <% } %>
             </div>
         </div>

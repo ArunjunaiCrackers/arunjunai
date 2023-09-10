@@ -36,6 +36,7 @@
                 <table class="table">
                   <thead>
                     <tr>
+                      <th scope="col">Code</th>
                       <th scope="col">Product</th>
                       <th scope="col">Name</th>
                       <th scope="col">Type</th>
@@ -56,6 +57,7 @@
                     
                    
                     <tr>
+                      <td data-label="Code" class="mobile-display"><%= product.code %></td>
                       <td data-label="Product" class="mobile-display">
                         
                         
@@ -64,25 +66,25 @@
                           <img class="img-fluid productImg" src="<%= product.imagePath %>" alt="">
                         </a>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal-<%=product._id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close btn" data-bs-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <img src="<%=product.imagePath%>" alt="" style="width:100%">
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal-<%=product._id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                <button type="button" class="close btn" data-bs-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                <img src="<%=product.imagePath%>" alt="" style="width:100%">
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
 
                       </td>
                       <td data-label="Name" class="mobile-display"><%= product.name %></td>
@@ -102,7 +104,7 @@
                       <input type="hidden" name="dPrice" id="dPrice" value="<%=product.discountPrice%>">
                       <input type="hidden" name="content" id="content" value="<%=product.content%>">
                   
-                      <td data-label="Quantity" style="width:10%;"><input type="text" inputmode="numeric" class="form-control valueBox qty quantity" value min="0" name="qty" defaultValue=0 id="qty" onchange="doMath('<%=index%>')" placeholder="Qty"></td>
+                      <td data-label="Quantity" style="width:10%;"><input type="text" inputmode="numeric" class="form-control valueBox qty quantity" value min="0" name="qty" defaultValue=0 id="qty" onkeyup="doMath('<%=index%>')" placeholder="Qty"></td>
                       <td data-label="Total" style="width:10%;"><input type="number" class="form-control valueBox total" id="tempTotal_<%=index%>" value disabled ></td>
                     </tr>
                   

@@ -58,15 +58,13 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/shop', function(req, res, next) {
-  Products.find( function(err,result){
-    if(err){
-      console.log(err);
-      return res.render('/');
-    }
-
+  Products.find().sort({code:1})
+  .then(result=>{
     let discountChange = [];
-    
     res.render('shop', { title: 'Shop | Arunjunai', products:result, prodLength:result.length });
+  }).catch(err=>{
+    console.log(err);
+    return res.render('/');
   })
   
 });
@@ -198,16 +196,32 @@ router.get('/productsControl', function(req,res,next){
   })
 })
 
-router.post('/update/:id', upload.single('prodImage'), function(req,res,next){
+router.post('/update/:id', function(req,res,next){
+  var id = req.params.id;
+  Products.updateOne(
+    {_id:id},
+    {$set: {
+      code : req.body.code,
+      name: req.body.newName,
+      type:req.body.productType,
+      content: req.body.newContent,
+      actualPrice: req.body.newActualPrice,
+      discountPrice: req.body.newDiscountPrice
+    }}, function(err,ress){
+      if(err){
+        console.log(err);
+        return res.render('prem', {products:[], title:'Control | Arunjunai Traders'});
+      }
+      res.redirect('/productsControl');
+    })
+})
+
+router.post('/updateImg/:id', upload.single('prodImage'), function(req,res,next){
   var id = req.params.id;
   Products.updateOne(
     {_id:id},
     {$set: {
       imagePath : req.file.path.slice(6),
-      name: req.body.newName,
-      content: req.body.newContent,
-      actualPrice: req.body.newActualPrice,
-      discountPrice: req.body.newDiscountPrice
     }}, function(err,ress){
       if(err){
         console.log(err);

@@ -3,6 +3,7 @@ var Schema = mongoose.Schema;
 
 var schema = new Schema({
     imagePath:{type:String},
+    code:{type:Number},
     name: {type:String, required:true},
     content:{type:String, required:true},
     type:{type:String, required:true},
