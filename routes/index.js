@@ -221,7 +221,7 @@ router.post('/updateImg/:id', upload.single('prodImage'), function(req,res,next)
   Products.updateOne(
     {_id:id},
     {$set: {
-      imagePath : req.file.path.slice(6),
+      imagePath : req.file.path,
     }}, function(err,ress){
       if(err){
         console.log(err);
