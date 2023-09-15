@@ -18,7 +18,7 @@ var fs = require('fs');
 
 var storage = multer.diskStorage({
     destination: function(req,file,cb){
-        cb(null, 'uploads/');
+        cb(null, './public/images/newProducts/');
     },
     filename: function(req,file, cb){
         cb(null, file.originalname);
@@ -221,7 +221,7 @@ router.post('/updateImg/:id', upload.single('prodImage'), function(req,res,next)
   Products.updateOne(
     {_id:id},
     {$set: {
-      imagePath : req.file.path,
+      imagePath : req.file.path.slice(6),
     }}, function(err,ress){
       if(err){
         console.log(err);
