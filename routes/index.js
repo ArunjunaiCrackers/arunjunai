@@ -306,7 +306,6 @@ router.post('/changeDiscount', function(req,res,next){
 router.post('/newProduct',  function(req,res,next){
 console.log(req.file.path);
   var product = new Products({
-    imagePath : req.file.path,
     code : req.body.code,
     name : req.body.prodName,
     content : req.body.prodContent,
