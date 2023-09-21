@@ -201,6 +201,7 @@ router.post('/update/:id', function(req,res,next){
   Products.updateOne(
     {_id:id},
     {$set: {
+      imagePath : req.file.path,
       code : req.body.code,
       name: req.body.newName,
       type:req.body.productType,
