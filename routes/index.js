@@ -305,6 +305,7 @@ router.post('/changeDiscount', function(req,res,next){
 
 router.post('/newProduct',  function(req,res,next){
 
+  console.log(req.body)
   var product = new Products({
     code : req.body.code,
     name : req.body.prodName,
