@@ -34,6 +34,7 @@ app.use(session({
   store: MongoStore.create({ mongoUrl : mongoUri }),
   cookie:{maxAge:180*60*1000},
 }));
+app.use(express.static(__dirname));
 app.use(express.static(path.join(__dirname, 'public')));
 
 

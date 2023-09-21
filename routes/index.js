@@ -37,7 +37,7 @@ var fileFilter = (req, file, cb) => {
 
 var upload = multer({
     storage:storage,
-    limits:{fileSize: 1024 * 1024 * 5},
+    limits:{fileSize: 1024 * 1024 * 2},
     fileFilter: fileFilter
 });
 
@@ -289,7 +289,7 @@ router.post('/changeDiscount', function(req,res,next){
 router.post('/newProduct', upload.single('prodImage'), function(req,res,next){
 console.log(req.file.path);
   var product = new Products({
-    imagePath : req.file.path,
+    imagePath : req.file.path.slice(6),
     code : req.body.code,
     name : req.body.prodName,
     content : req.body.prodContent,
