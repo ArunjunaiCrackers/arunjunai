@@ -41,6 +41,14 @@ var upload = multer({
     fileFilter: fileFilter
 });
 
+const cloudinary = require('cloudinary').v2;
+          
+cloudinary.config({ 
+  cloud_name: 'droeoicy2', 
+  api_key: '595863132678731', 
+  api_secret: 'aMN0VZ_m2XyIcGPQQpH-CsTRsgk' 
+});
+
 
 var transporter = nodemailer.createTransport({
   host: 'smtp.gmail.com',
@@ -201,7 +209,6 @@ router.post('/update/:id', function(req,res,next){
   Products.updateOne(
     {_id:id},
     {$set: {
-      imagePath : req.file.path,
       code : req.body.code,
       name: req.body.newName,
       type:req.body.productType,
@@ -219,17 +226,26 @@ router.post('/update/:id', function(req,res,next){
 
 router.post('/updateImg/:id', upload.single('prodImage'), function(req,res,next){
   var id = req.params.id;
-  Products.updateOne(
-    {_id:id},
-    {$set: {
-      imagePath : req.file.path.slice(6),
-    }}, function(err,ress){
-      if(err){
-        console.log(err);
-        return res.render('prem', {products:[], title:'Control | Arunjunai Traders'});
-      }
-      res.redirect('/productsControl');
-    })
+
+  cloudinary.uploader.upload(req.file.path, function(err, result){
+
+    Products.updateOne(
+      {_id:id},
+      {$set: {
+        imagePath : result.url,
+      }}, function(err,ress){
+        if(err){
+          console.log(err);
+          return res.render('prem', {products:[], title:'Control | Arunjunai Traders'});
+        }
+        res.redirect('/productsControl');
+      })
+
+
+
+  })
+
+  
 })
 
 router.get('/makeAvailable/:id', function(req,res,next){
@@ -287,10 +303,10 @@ router.post('/changeDiscount', function(req,res,next){
   )
 })
 
-router.post('/newProduct', upload.single('prodImage'), function(req,res,next){
+router.post('/newProduct',  function(req,res,next){
 console.log(req.file.path);
   var product = new Products({
-    imagePath : req.file.path.slice(6),
+    imagePath : req.file.path,
     code : req.body.code,
     name : req.body.prodName,
     content : req.body.prodContent,
