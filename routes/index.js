@@ -335,9 +335,9 @@ if(errr){
   const mainOptions = {
     from: '"Arunjunai - Order Estimation" arunjunaicrackers@gmail.com',
     to: [
-      { name: "Myself", address: "thamarayan@gmail.com" },
+      // { name: "Myself", address: "thamarayan@gmail.com" },
       { name: "Client", address: clientEmail },
-      // {name: "Prem", address:"premanandhshy89@gmail.com"}
+      {name: "Prem", address:"premanandhshy89@gmail.com"}
     ],
     subject: 'New Order Estimation',
     html: data
