@@ -1,0 +1,3655 @@
+<%- include ("partials/header") %>
+
+<div class="container-fluid cf-shop">
+    <div class="row">
+        <div class="col-md-12 col-12">
+            <img src="images/banner 2.jpg" alt="" class="bannerImg">
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid sticky-top cf-billBoard pt-5 pt-md-2">
+  <div class="row billBoard">
+    
+      <div class="col-md-4 col-4">
+        <h3>Items : <span id="totalProducts"></span></h3>
+      </div>
+      <div class="col-md-4 col-4">
+        <h3>Savings : <span id="discountTotal"></span></h3>
+      </div>
+      <div class="col-md-4 col-4">
+        <h3>Bill Value : <span id="overallTotal"></span></h3>
+      </div>
+    
+  </div>
+</div>
+
+<div class="categDiv">
+  <h5 class="categHead">Price List</h5>
+</div>
+
+<div class="container-fluid cf-products">
+  <form action="/addProducts" method="post">
+
+    <!-- 1 Sound crackers -->
+    <div class="row">
+            <div class="col-md-12">
+              <div class="col-md-12 col-12 table-striped table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Code</th>
+                      <th scope="col">Product</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Type</th>
+                      <th scope="col">Content</th>
+                      <th scope="col">Actual Price</th>
+                      <th scope="col">Amount</th>
+                      <th scope="col">Quantity</th>
+                      <th scope="col">Total</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                   
+          <!-- sound crackers          -->
+                    <div class="categDiv">
+                      <h5 class="categHead">SOUND CRACKERS</h5>
+                    </div>
+                   <% sc.forEach((sc,index) => { %>
+                    
+                     <% if (sc.availability) { %>
+                       
+                    <tr>
+                      <td data-label="Code" class="mobile-display"><%= sc.code %></td>
+                      <td data-label="Product" class="mobile-display">
+                        
+                        
+                        <!-- Button trigger modal -->
+                        <a type="button" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#exampleModal-<%=sc._id%>">
+                          <img class="img-fluid productImg" src="<%= sc.imagePath %>" alt="">
+                        </a>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal-<%=sc._id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel"><%=sc.name%></h5>
+                                <button type="button" class="close btn" data-bs-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                <img src="<%=sc.imagePath%>" alt="" style="width:100%">
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                      </td>
+                      <td data-label="Name" class="mobile-display" id="prod1"><%= sc.name %></td>
+                      <td data-label="Type" class="mobile-hidden"><%= sc.type %></td>
+                      <td data-label="Content" class="mobile-hidden"><%= sc.content %></td>
+                      <td data-label="Actual Price"><h6 class="strike">&#8377;<%= sc.actualPrice %></h6></td>
+                      <td data-label="Amount" class="mobile-display">&#8377;<%= sc.discountPrice %></td>
+
+                      <input type="hidden" name="scLength" id="scLength" value="<%=scLength%>">
+                      <input type="hidden" name="actualValue" id="1actualValue_<%=index%>" value="<%= sc.actualPrice %>">
+                      <input type="hidden" name="priceValue" id="1priceValue_<%=index%>" value="<%= sc.discountPrice %>">
+                      <input type="hidden" name="actSubTotal" id="1actSubTotal_<%=index%>" value>
+                      <input type="hidden" name="ids" id="ids" value="<%=sc._id%>">
+                      <input type="hidden" name="name" id="name" value="<%=sc.name%>">
+                      <input type="hidden" name="type" id="type" value="<%=sc.type%>">
+                      <input type="hidden" name="aPrice" id="aPrice" value="<%=sc.actualPrice%>">
+                      <input type="hidden" name="dPrice" id="dPrice" value="<%=sc.discountPrice%>">
+                      <input type="hidden" name="content" id="content" value="<%=sc.content%>">
+                      <input type="hidden" name="netSCValues" id="netSCValues" value>
+                      <input type="hidden" name="scTotalProducts" id="scTotalProducts" value>
+                      <input type="hidden" name="scdiscountTotal" id="scdiscountTotal" value>
+                      <input type="hidden" name="scActualPrice" id="scActualPrice" value>
+                      
+
+                      <td data-label="Quantity" style="width:10%;"><input type="text" inputmode="numeric" class="form-control valueBox scqty quantity" value min="0" name="qty" defaultValue=0 id="scqty" onkeyup="doMathSC('<%=index%>')" placeholder="Qty"></td>
+                      <td data-label="Total" style="width:10%;"><input type="number" class="form-control valueBox total" id="1tempTotal_<%=index%>" value disabled ></td>
+                    </tr>
+                  
+                    <% } %>
+                   <% }) %>
+                    
+                  </tbody>
+              </table>
+              </div>
+            </div>
+    </div>
+
+    <!-- 2 Ground crackers -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="col-md-12 col-12 table-striped table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Code</th>
+                <th scope="col">Product</th>
+                <th scope="col">Name</th>
+                <th scope="col">Type</th>
+                <th scope="col">Content</th>
+                <th scope="col">Actual Price</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+             
+    <!-- Ground chakkar -->
+              <div class="categDiv">
+                <h5 class="categHead">GROUND CRACKERS</h5>
+              </div>
+             <% gc.forEach((gc,index) => { %>
+              
+               <% if (gc.availability) { %>
+                 
+              <tr>
+                <td data-label="Code" class="mobile-display"><%= gc.code %></td>
+                <td data-label="Product" class="mobile-display">
+                  
+                  
+                  <!-- Button trigger modal -->
+                  <a type="button" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#exampleModal-<%=gc._id%>">
+                    <img class="img-fluid productImg" src="<%= gc.imagePath %>" alt="">
+                  </a>
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModal-<%=gc._id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel"><%=gc.name%></h5>
+                          <button type="button" class="close btn" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <img src="<%=gc.imagePath%>" alt="" style="width:100%">
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </td>
+                <td data-label="Name" class="mobile-display" id="prod1"><%= gc.name %></td>
+                <td data-label="Type" class="mobile-hidden"><%= gc.type %></td>
+                <td data-label="Content" class="mobile-hidden"><%= gc.content %></td>
+                <td data-label="Actual Price"><h6 class="strike">&#8377;<%= gc.actualPrice %></h6></td>
+                <td data-label="Amount" class="mobile-display">&#8377;<%= gc.discountPrice %></td>
+
+                <input type="hidden" name="gcLength" id="gcLength" value="<%=gcLength%>">
+                <input type="hidden" name="actualValue" id="2actualValue_<%=index%>" value="<%= gc.actualPrice %>">
+                <input type="hidden" name="priceValue" id="2priceValue_<%=index%>" value="<%= gc.discountPrice %>">
+                <input type="hidden" name="actSubTotal" id="2actSubTotal_<%=index%>" value>
+                <input type="hidden" name="ids" id="ids" value="<%=gc._id%>">
+                <input type="hidden" name="name" id="name" value="<%=gc.name%>">
+                <input type="hidden" name="type" id="type" value="<%=gc.type%>">
+                <input type="hidden" name="aPrice" id="aPrice" value="<%=gc.actualPrice%>">
+                <input type="hidden" name="dPrice" id="dPrice" value="<%=gc.discountPrice%>">
+                <input type="hidden" name="content" id="content" value="<%=gc.content%>">
+                <input type="hidden" name="netGCValues" id="netGCValues" value>
+                <input type="hidden" name="gcTotalProducts" id="gcTotalProducts" value>
+                <input type="hidden" name="gcdiscountTotal" id="gcdiscountTotal" value>
+                <input type="hidden" name="gcActualPrice" id="gcActualPrice" value>
+            
+                <td data-label="Quantity" style="width:10%;"><input type="text" inputmode="numeric" class="form-control valueBox gcqty quantity" value min="0" name="qty" defaultValue=0 id="gcqty" onkeyup="doMathGC('<%=index%>')" placeholder="Qty"></td>
+                <td data-label="Total" style="width:10%;"><input type="number" class="form-control valueBox total" id="2tempTotal_<%=index%>" value disabled ></td>
+              </tr>
+            
+              <% } %>
+             <% }) %>
+              
+            </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3 Flower Pots -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="col-md-12 col-12 table-striped table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Code</th>
+                <th scope="col">Product</th>
+                <th scope="col">Name</th>
+                <th scope="col">Type</th>
+                <th scope="col">Content</th>
+                <th scope="col">Actual Price</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+             
+    <!-- Flower Pots -->
+              <div class="categDiv">
+                <h5 class="categHead">FLOWER POTS</h5>
+              </div>
+             <% fp.forEach((fp,index) => { %>
+              
+               <% if (fp.availability) { %>
+                 
+              <tr>
+                <td data-label="Code" class="mobile-display"><%= fp.code %></td>
+                <td data-label="Product" class="mobile-display">
+                  
+                  
+                  <!-- Button trigger modal -->
+                  <a type="button" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#exampleModal-<%=fp._id%>">
+                    <img class="img-fluid productImg" src="<%= fp.imagePath %>" alt="">
+                  </a>
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModal-<%=fp._id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel"><%=fp.name%></h5>
+                          <button type="button" class="close btn" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <img src="<%=fp.imagePath%>" alt="" style="width:100%">
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </td>
+                <td data-label="Name" class="mobile-display" id="prod1"><%= fp.name %></td>
+                <td data-label="Type" class="mobile-hidden"><%= fp.type %></td>
+                <td data-label="Content" class="mobile-hidden"><%= fp.content %></td>
+                <td data-label="Actual Price"><h6 class="strike">&#8377;<%= fp.actualPrice %></h6></td>
+                <td data-label="Amount" class="mobile-display">&#8377;<%= fp.discountPrice %></td>
+
+                <input type="hidden" name="fpLength" id="fpLength" value="<%=fpLength%>">
+                <input type="hidden" name="actualValue" id="3actualValue_<%=index%>" value="<%= fp.actualPrice %>">
+                <input type="hidden" name="priceValue" id="3priceValue_<%=index%>" value="<%= fp.discountPrice %>">
+                <input type="hidden" name="actSubTotal" id="3actSubTotal_<%=index%>" value>
+                <input type="hidden" name="ids" id="ids" value="<%=fp._id%>">
+                <input type="hidden" name="name" id="name" value="<%=fp.name%>">
+                <input type="hidden" name="type" id="type" value="<%=fp.type%>">
+                <input type="hidden" name="aPrice" id="aPrice" value="<%=fp.actualPrice%>">
+                <input type="hidden" name="dPrice" id="dPrice" value="<%=fp.discountPrice%>">
+                <input type="hidden" name="content" id="content" value="<%=fp.content%>">
+                <input type="hidden" name="netFPValues" id="netFPValues" value>
+                <input type="hidden" name="fpTotalProducts" id="fpTotalProducts" value>
+                <input type="hidden" name="fpdiscountTotal" id="fpdiscountTotal" value>
+                <input type="hidden" name="fpActualPrice" id="fpActualPrice" value>
+            
+                <td data-label="Quantity" style="width:10%;"><input type="text" inputmode="numeric" class="form-control valueBox fpqty quantity" value min="0" name="qty" defaultValue=0 id="fpqty" onkeyup="doMathFP('<%=index%>')" placeholder="Qty"></td>
+                <td data-label="Total" style="width:10%;"><input type="number" class="form-control valueBox total" id="3tempTotal_<%=index%>" value disabled ></td>
+              </tr>
+            
+              <% } %>
+             <% }) %>
+              
+            </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4 Bijili Crackers -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="col-md-12 col-12 table-striped table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Code</th>
+                <th scope="col">Product</th>
+                <th scope="col">Name</th>
+                <th scope="col">Type</th>
+                <th scope="col">Content</th>
+                <th scope="col">Actual Price</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+             
+    <!-- Bijili Crackers -->
+              <div class="categDiv">
+                <h5 class="categHead">BIJILI CRACKERS</h5>
+              </div>
+             <% bc.forEach((bc,index) => { %>
+              
+               <% if (bc.availability) { %>
+                 
+              <tr>
+                <td data-label="Code" class="mobile-display"><%= bc.code %></td>
+                <td data-label="Product" class="mobile-display">
+                  
+                  
+                  <!-- Button trigger modal -->
+                  <a type="button" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#exampleModal-<%=bc._id%>">
+                    <img class="img-fluid productImg" src="<%= bc.imagePath %>" alt="">
+                  </a>
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModal-<%=bc._id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel"><%=bc.name%></h5>
+                          <button type="button" class="close btn" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <img src="<%=bc.imagePath%>" alt="" style="width:100%">
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </td>
+                <td data-label="Name" class="mobile-display" id="prod1"><%= bc.name %></td>
+                <td data-label="Type" class="mobile-hidden"><%= bc.type %></td>
+                <td data-label="Content" class="mobile-hidden"><%= bc.content %></td>
+                <td data-label="Actual Price"><h6 class="strike">&#8377;<%= bc.actualPrice %></h6></td>
+                <td data-label="Amount" class="mobile-display">&#8377;<%= bc.discountPrice %></td>
+
+                <input type="hidden" name="bcLength" id="bcLength" value="<%=bcLength%>">
+                <input type="hidden" name="actualValue" id="4actualValue_<%=index%>" value="<%= bc.actualPrice %>">
+                <input type="hidden" name="priceValue" id="4priceValue_<%=index%>" value="<%= bc.discountPrice %>">
+                <input type="hidden" name="actSubTotal" id="4actSubTotal_<%=index%>" value>
+                <input type="hidden" name="ids" id="ids" value="<%=bc._id%>">
+                <input type="hidden" name="name" id="name" value="<%=bc.name%>">
+                <input type="hidden" name="type" id="type" value="<%=bc.type%>">
+                <input type="hidden" name="aPrice" id="aPrice" value="<%=bc.actualPrice%>">
+                <input type="hidden" name="dPrice" id="dPrice" value="<%=bc.discountPrice%>">
+                <input type="hidden" name="content" id="content" value="<%=bc.content%>">
+                <input type="hidden" name="netBCValues" id="netBCValues" value>
+                <input type="hidden" name="bcTotalProducts" id="bcTotalProducts" value>
+                <input type="hidden" name="bcdiscountTotal" id="bcdiscountTotal" value>
+                <input type="hidden" name="bcActualPrice" id="bcActualPrice" value>
+            
+                <td data-label="Quantity" style="width:10%;"><input type="text" inputmode="numeric" class="form-control valueBox bcqty quantity" value min="0" name="qty" defaultValue=0 id="bcqty" onkeyup="doMathBC('<%=index%>')" placeholder="Qty"></td>
+                <td data-label="Total" style="width:10%;"><input type="number" class="form-control valueBox total" id="4tempTotal_<%=index%>" value disabled ></td>
+              </tr>
+            
+              <% } %>
+             <% }) %>
+              
+            </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5 Little Crackers -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="col-md-12 col-12 table-striped table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Code</th>
+                <th scope="col">Product</th>
+                <th scope="col">Name</th>
+                <th scope="col">Type</th>
+                <th scope="col">Content</th>
+                <th scope="col">Actual Price</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+             
+    <!-- Little Crackers -->
+              <div class="categDiv">
+                <h5 class="categHead">LITTLE CRACKERS</h5>
+              </div>
+             <% lc.forEach((lc,index) => { %>
+              
+               <% if (lc.availability) { %>
+                 
+              <tr>
+                <td data-label="Code" class="mobile-display"><%= lc.code %></td>
+                <td data-label="Product" class="mobile-display">
+                  
+                  
+                  <!-- Button trigger modal -->
+                  <a type="button" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#exampleModal-<%=lc._id%>">
+                    <img class="img-fluid productImg" src="<%= lc.imagePath %>" alt="">
+                  </a>
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModal-<%=lc._id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel"><%=lc.name%></h5>
+                          <button type="button" class="close btn" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <img src="<%=lc.imagePath%>" alt="" style="width:100%">
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </td>
+                <td data-label="Name" class="mobile-display" id="prod1"><%= lc.name %></td>
+                <td data-label="Type" class="mobile-hidden"><%= lc.type %></td>
+                <td data-label="Content" class="mobile-hidden"><%= lc.content %></td>
+                <td data-label="Actual Price"><h6 class="strike">&#8377;<%= lc.actualPrice %></h6></td>
+                <td data-label="Amount" class="mobile-display">&#8377;<%= lc.discountPrice %></td>
+
+                <input type="hidden" name="lcLength" id="lcLength" value="<%=lcLength%>">
+                <input type="hidden" name="actualValue" id="5actualValue_<%=index%>" value="<%= lc.actualPrice %>">
+                <input type="hidden" name="priceValue" id="5priceValue_<%=index%>" value="<%= lc.discountPrice %>">
+                <input type="hidden" name="actSubTotal" id="5actSubTotal_<%=index%>" value>
+                <input type="hidden" name="ids" id="ids" value="<%=lc._id%>">
+                <input type="hidden" name="name" id="name" value="<%=lc.name%>">
+                <input type="hidden" name="type" id="type" value="<%=lc.type%>">
+                <input type="hidden" name="aPrice" id="aPrice" value="<%=lc.actualPrice%>">
+                <input type="hidden" name="dPrice" id="dPrice" value="<%=lc.discountPrice%>">
+                <input type="hidden" name="content" id="content" value="<%=lc.content%>">
+                <input type="hidden" name="netLCValues" id="netLCValues" value>
+                <input type="hidden" name="lcTotalProducts" id="lcTotalProducts" value>
+                <input type="hidden" name="lcdiscountTotal" id="lcdiscountTotal" value>
+                <input type="hidden" name="lcActualPrice" id="lcActualPrice" value>
+            
+                <td data-label="Quantity" style="width:10%;"><input type="text" inputmode="numeric" class="form-control valueBox lcqty quantity" value min="0" name="qty" defaultValue=0 id="lcqty" onkeyup="doMathLC('<%=index%>')" placeholder="Qty"></td>
+                <td data-label="Total" style="width:10%;"><input type="number" class="form-control valueBox total" id="5tempTotal_<%=index%>" value disabled ></td>
+              </tr>
+            
+              <% } %>
+             <% }) %>
+              
+            </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6 Lighting Series -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="col-md-12 col-12 table-striped table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Code</th>
+                <th scope="col">Product</th>
+                <th scope="col">Name</th>
+                <th scope="col">Type</th>
+                <th scope="col">Content</th>
+                <th scope="col">Actual Price</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+             
+    <!-- Lighting Series -->
+              <div class="categDiv">
+                <h5 class="categHead">LIGHTING SERIES</h5>
+              </div>
+             <% ls.forEach((ls,index) => { %>
+              
+               <% if (ls.availability) { %>
+                 
+              <tr>
+                <td data-label="Code" class="mobile-display"><%= ls.code %></td>
+                <td data-label="Product" class="mobile-display">
+                  
+                  
+                  <!-- Button trigger modal -->
+                  <a type="button" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#exampleModal-<%=ls._id%>">
+                    <img class="img-fluid productImg" src="<%= ls.imagePath %>" alt="">
+                  </a>
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModal-<%=ls._id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel"><%=ls.name%></h5>
+                          <button type="button" class="close btn" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <img src="<%=ls.imagePath%>" alt="" style="width:100%">
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </td>
+                <td data-label="Name" class="mobile-display" id="prod1"><%= ls.name %></td>
+                <td data-label="Type" class="mobile-hidden"><%= ls.type %></td>
+                <td data-label="Content" class="mobile-hidden"><%= ls.content %></td>
+                <td data-label="Actual Price"><h6 class="strike">&#8377;<%= ls.actualPrice %></h6></td>
+                <td data-label="Amount" class="mobile-display">&#8377;<%= ls.discountPrice %></td>
+
+                <input type="hidden" name="lsLength" id="lsLength" value="<%=lsLength%>">
+                <input type="hidden" name="actualValue" id="6actualValue_<%=index%>" value="<%= ls.actualPrice %>">
+                <input type="hidden" name="priceValue" id="6priceValue_<%=index%>" value="<%= ls.discountPrice %>">
+                <input type="hidden" name="actSubTotal" id="6actSubTotal_<%=index%>" value>
+                <input type="hidden" name="ids" id="ids" value="<%=ls._id%>">
+                <input type="hidden" name="name" id="name" value="<%=ls.name%>">
+                <input type="hidden" name="type" id="type" value="<%=ls.type%>">
+                <input type="hidden" name="aPrice" id="aPrice" value="<%=ls.actualPrice%>">
+                <input type="hidden" name="dPrice" id="dPrice" value="<%=ls.discountPrice%>">
+                <input type="hidden" name="content" id="content" value="<%=ls.content%>">
+                <input type="hidden" name="netLSValues" id="netLSValues" value>
+                <input type="hidden" name="lsTotalProducts" id="lsTotalProducts" value>
+                <input type="hidden" name="lsdiscountTotal" id="lsdiscountTotal" value>
+                <input type="hidden" name="lsActualPrice" id="lsActualPrice" value>
+            
+                <td data-label="Quantity" style="width:10%;"><input type="text" inputmode="numeric" class="form-control valueBox lsqty quantity" value min="0" name="qty" defaultValue=0 id="lsqty" onkeyup="doMathLS('<%=index%>')" placeholder="Qty"></td>
+                <td data-label="Total" style="width:10%;"><input type="number" class="form-control valueBox total" id="6tempTotal_<%=index%>" value disabled ></td>
+              </tr>
+            
+              <% } %>
+             <% }) %>
+              
+            </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7 Bombs -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="col-md-12 col-12 table-striped table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Code</th>
+                <th scope="col">Product</th>
+                <th scope="col">Name</th>
+                <th scope="col">Type</th>
+                <th scope="col">Content</th>
+                <th scope="col">Actual Price</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+             
+    <!-- Bombs -->
+              <div class="categDiv">
+                <h5 class="categHead">BOMBS</h5>
+              </div>
+             <% bo.forEach((bo,index) => { %>
+              
+               <% if (bo.availability) { %>
+                 
+              <tr>
+                <td data-label="Code" class="mobile-display"><%= bo.code %></td>
+                <td data-label="Product" class="mobile-display">
+                  
+                  
+                  <!-- Button trigger modal -->
+                  <a type="button" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#exampleModal-<%=bo._id%>">
+                    <img class="img-fluid productImg" src="<%= bo.imagePath %>" alt="">
+                  </a>
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModal-<%=bo._id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel"><%=bo.name%></h5>
+                          <button type="button" class="close btn" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <img src="<%=bo.imagePath%>" alt="" style="width:100%">
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </td>
+                <td data-label="Name" class="mobile-display" id="prod1"><%= bo.name %></td>
+                <td data-label="Type" class="mobile-hidden"><%= bo.type %></td>
+                <td data-label="Content" class="mobile-hidden"><%= bo.content %></td>
+                <td data-label="Actual Price"><h6 class="strike">&#8377;<%= bo.actualPrice %></h6></td>
+                <td data-label="Amount" class="mobile-display">&#8377;<%= bo.discountPrice %></td>
+
+                <input type="hidden" name="boLength" id="boLength" value="<%=boLength%>">
+                <input type="hidden" name="actualValue" id="7actualValue_<%=index%>" value="<%= bo.actualPrice %>">
+                <input type="hidden" name="priceValue" id="7priceValue_<%=index%>" value="<%= bo.discountPrice %>">
+                <input type="hidden" name="actSubTotal" id="7actSubTotal_<%=index%>" value>
+                <input type="hidden" name="ids" id="ids" value="<%=bo._id%>">
+                <input type="hidden" name="name" id="name" value="<%=bo.name%>">
+                <input type="hidden" name="type" id="type" value="<%=bo.type%>">
+                <input type="hidden" name="aPrice" id="aPrice" value="<%=bo.actualPrice%>">
+                <input type="hidden" name="dPrice" id="dPrice" value="<%=bo.discountPrice%>">
+                <input type="hidden" name="content" id="content" value="<%=bo.content%>">
+                <input type="hidden" name="netBOValues" id="netBOValues" value>
+                <input type="hidden" name="boTotalProducts" id="boTotalProducts" value>
+                <input type="hidden" name="bodiscountTotal" id="bodiscountTotal" value>
+                <input type="hidden" name="boActualPrice" id="boActualPrice" value>
+            
+                <td data-label="Quantity" style="width:10%;"><input type="text" inputmode="numeric" class="form-control valueBox boqty quantity" value min="0" name="qty" defaultValue=0 id="boqty" onkeyup="doMathBO('<%=index%>')" placeholder="Qty"></td>
+                <td data-label="Total" style="width:10%;"><input type="number" class="form-control valueBox total" id="7tempTotal_<%=index%>" value disabled ></td>
+              </tr>
+            
+              <% } %>
+             <% }) %>
+              
+            </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8 Rockets -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="col-md-12 col-12 table-striped table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Code</th>
+                <th scope="col">Product</th>
+                <th scope="col">Name</th>
+                <th scope="col">Type</th>
+                <th scope="col">Content</th>
+                <th scope="col">Actual Price</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+             
+    <!-- Rockets -->
+              <div class="categDiv">
+                <h5 class="categHead">ROCKETS</h5>
+              </div>
+             <% ro.forEach((ro,index) => { %>
+              
+               <% if (ro.availability) { %>
+                 
+              <tr>
+                <td data-label="Code" class="mobile-display"><%= ro.code %></td>
+                <td data-label="Product" class="mobile-display">
+                  
+                  
+                  <!-- Button trigger modal -->
+                  <a type="button" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#exampleModal-<%=ro._id%>">
+                    <img class="img-fluid productImg" src="<%= ro.imagePath %>" alt="">
+                  </a>
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModal-<%=ro._id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel"><%=ro.name%></h5>
+                          <button type="button" class="close btn" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <img src="<%=ro.imagePath%>" alt="" style="width:100%">
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </td>
+                <td data-label="Name" class="mobile-display" id="prod1"><%= ro.name %></td>
+                <td data-label="Type" class="mobile-hidden"><%= ro.type %></td>
+                <td data-label="Content" class="mobile-hidden"><%= ro.content %></td>
+                <td data-label="Actual Price"><h6 class="strike">&#8377;<%= ro.actualPrice %></h6></td>
+                <td data-label="Amount" class="mobile-display">&#8377;<%= ro.discountPrice %></td>
+
+                <input type="hidden" name="roLength" id="roLength" value="<%=roLength%>">
+                <input type="hidden" name="actualValue" id="8actualValue_<%=index%>" value="<%= ro.actualPrice %>">
+                <input type="hidden" name="priceValue" id="8priceValue_<%=index%>" value="<%= ro.discountPrice %>">
+                <input type="hidden" name="actSubTotal" id="8actSubTotal_<%=index%>" value>
+                <input type="hidden" name="ids" id="ids" value="<%=ro._id%>">
+                <input type="hidden" name="name" id="name" value="<%=ro.name%>">
+                <input type="hidden" name="type" id="type" value="<%=ro.type%>">
+                <input type="hidden" name="aPrice" id="aPrice" value="<%=ro.actualPrice%>">
+                <input type="hidden" name="dPrice" id="dPrice" value="<%=ro.discountPrice%>">
+                <input type="hidden" name="content" id="content" value="<%=ro.content%>">
+                <input type="hidden" name="netROValues" id="netROValues" value>
+                <input type="hidden" name="roTotalProducts" id="roTotalProducts" value>
+                <input type="hidden" name="rodiscountTotal" id="rodiscountTotal" value>
+                <input type="hidden" name="roActualPrice" id="roActualPrice" value>
+            
+                <td data-label="Quantity" style="width:10%;"><input type="text" inputmode="numeric" class="form-control valueBox roqty quantity" value min="0" name="qty" defaultValue=0 id="roqty" onkeyup="doMathRO('<%=index%>')" placeholder="Qty"></td>
+                <td data-label="Total" style="width:10%;"><input type="number" class="form-control valueBox total" id="8tempTotal_<%=index%>" value disabled ></td>
+              </tr>
+            
+              <% } %>
+             <% }) %>
+              
+            </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 9 Twinkling Stars -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="col-md-12 col-12 table-striped table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Code</th>
+                <th scope="col">Product</th>
+                <th scope="col">Name</th>
+                <th scope="col">Type</th>
+                <th scope="col">Content</th>
+                <th scope="col">Actual Price</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+             
+    <!-- Twinkling Stars -->
+              <div class="categDiv">
+                <h5 class="categHead">TWINKLING STARS</h5>
+              </div>
+             <% ts.forEach((ts,index) => { %>
+              
+               <% if (ts.availability) { %>
+                 
+              <tr>
+                <td data-label="Code" class="mobile-display"><%= ts.code %></td>
+                <td data-label="Product" class="mobile-display">
+                  
+                  
+                  <!-- Button trigger modal -->
+                  <a type="button" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#exampleModal-<%=ts._id%>">
+                    <img class="img-fluid productImg" src="<%= ts.imagePath %>" alt="">
+                  </a>
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModal-<%=ts._id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel"><%=ts.name%></h5>
+                          <button type="button" class="close btn" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <img src="<%=ts.imagePath%>" alt="" style="width:100%">
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </td>
+                <td data-label="Name" class="mobile-display" id="prod1"><%= ts.name %></td>
+                <td data-label="Type" class="mobile-hidden"><%= ts.type %></td>
+                <td data-label="Content" class="mobile-hidden"><%= ts.content %></td>
+                <td data-label="Actual Price"><h6 class="strike">&#8377;<%= ts.actualPrice %></h6></td>
+                <td data-label="Amount" class="mobile-display">&#8377;<%= ts.discountPrice %></td>
+
+                <input type="hidden" name="tsLength" id="tsLength" value="<%=tsLength%>">
+                <input type="hidden" name="actualValue" id="9actualValue_<%=index%>" value="<%= ts.actualPrice %>">
+                <input type="hidden" name="priceValue" id="9priceValue_<%=index%>" value="<%= ts.discountPrice %>">
+                <input type="hidden" name="actSubTotal" id="9actSubTotal_<%=index%>" value>
+                <input type="hidden" name="ids" id="ids" value="<%=ts._id%>">
+                <input type="hidden" name="name" id="name" value="<%=ts.name%>">
+                <input type="hidden" name="type" id="type" value="<%=ts.type%>">
+                <input type="hidden" name="aPrice" id="aPrice" value="<%=ts.actualPrice%>">
+                <input type="hidden" name="dPrice" id="dPrice" value="<%=ts.discountPrice%>">
+                <input type="hidden" name="content" id="content" value="<%=ts.content%>">
+                <input type="hidden" name="netTSValues" id="netTSValues" value>
+                <input type="hidden" name="tsTotalProducts" id="tsTotalProducts" value>
+                <input type="hidden" name="tsdiscountTotal" id="tsdiscountTotal" value>
+                <input type="hidden" name="tsActualPrice" id="tsActualPrice" value>
+            
+                <td data-label="Quantity" style="width:10%;"><input type="text" inputmode="numeric" class="form-control valueBox tsqty quantity" value min="0" name="qty" defaultValue=0 id="tsqty" onkeyup="doMathTS('<%=index%>')" placeholder="Qty"></td>
+                <td data-label="Total" style="width:10%;"><input type="number" class="form-control valueBox total" id="9tempTotal_<%=index%>" value disabled ></td>
+              </tr>
+            
+              <% } %>
+             <% }) %>
+              
+            </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10 Tin Fountain -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="col-md-12 col-12 table-striped table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Code</th>
+                <th scope="col">Product</th>
+                <th scope="col">Name</th>
+                <th scope="col">Type</th>
+                <th scope="col">Content</th>
+                <th scope="col">Actual Price</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+             
+    <!-- Tin Fountain -->
+              <div class="categDiv">
+                <h5 class="categHead">TIN FOUNTAIN</h5>
+              </div>
+             <% tf.forEach((tf,index) => { %>
+              
+               <% if (tf.availability) { %>
+                 
+              <tr>
+                <td data-label="Code" class="mobile-display"><%= tf.code %></td>
+                <td data-label="Product" class="mobile-display">
+                  
+                  
+                  <!-- Button trigger modal -->
+                  <a type="button" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#exampleModal-<%=tf._id%>">
+                    <img class="img-fluid productImg" src="<%= tf.imagePath %>" alt="">
+                  </a>
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModal-<%=tf._id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel"><%=tf.name%></h5>
+                          <button type="button" class="close btn" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <img src="<%=tf.imagePath%>" alt="" style="width:100%">
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </td>
+                <td data-label="Name" class="mobile-display" id="prod1"><%= tf.name %></td>
+                <td data-label="Type" class="mobile-hidden"><%= tf.type %></td>
+                <td data-label="Content" class="mobile-hidden"><%= tf.content %></td>
+                <td data-label="Actual Price"><h6 class="strike">&#8377;<%= tf.actualPrice %></h6></td>
+                <td data-label="Amount" class="mobile-display">&#8377;<%= tf.discountPrice %></td>
+
+                <input type="hidden" name="tfLength" id="tfLength" value="<%=tfLength%>">
+                <input type="hidden" name="actualValue" id="10actualValue_<%=index%>" value="<%= tf.actualPrice %>">
+                <input type="hidden" name="priceValue" id="10priceValue_<%=index%>" value="<%= tf.discountPrice %>">
+                <input type="hidden" name="actSubTotal" id="10actSubTotal_<%=index%>" value>
+                <input type="hidden" name="ids" id="ids" value="<%=tf._id%>">
+                <input type="hidden" name="name" id="name" value="<%=tf.name%>">
+                <input type="hidden" name="type" id="type" value="<%=tf.type%>">
+                <input type="hidden" name="aPrice" id="aPrice" value="<%=tf.actualPrice%>">
+                <input type="hidden" name="dPrice" id="dPrice" value="<%=tf.discountPrice%>">
+                <input type="hidden" name="content" id="content" value="<%=tf.content%>">
+                <input type="hidden" name="netTFValues" id="netTFValues" value>
+                <input type="hidden" name="tfTotalProducts" id="tfTotalProducts" value>
+                <input type="hidden" name="tfdiscountTotal" id="tfdiscountTotal" value>
+                <input type="hidden" name="tfActualPrice" id="tfActualPrice" value>
+            
+                <td data-label="Quantity" style="width:10%;"><input type="text" inputmode="numeric" class="form-control valueBox tfqty quantity" value min="0" name="qty" defaultValue=0 id="tfqty" onkeyup="doMathTF('<%=index%>')" placeholder="Qty"></td>
+                <td data-label="Total" style="width:10%;"><input type="number" class="form-control valueBox total" id="10tempTotal_<%=index%>" value disabled ></td>
+              </tr>
+            
+              <% } %>
+             <% }) %>
+              
+            </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 12 Shower Crackers -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="col-md-12 col-12 table-striped table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Code</th>
+                <th scope="col">Product</th>
+                <th scope="col">Name</th>
+                <th scope="col">Type</th>
+                <th scope="col">Content</th>
+                <th scope="col">Actual Price</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+             
+    <!-- Shower Crackers -->
+              <div class="categDiv">
+                <h5 class="categHead">SHOWER CRACKERS</h5>
+              </div>
+             <% shc.forEach((shc,index) => { %>
+              
+               <% if (shc.availability) { %>
+                 
+              <tr>
+                <td data-label="Code" class="mobile-display"><%= shc.code %></td>
+                <td data-label="Product" class="mobile-display">
+                  
+                  
+                  <!-- Button trigger modal -->
+                  <a type="button" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#exampleModal-<%=shc._id%>">
+                    <img class="img-fluid productImg" src="<%= shc.imagePath %>" alt="">
+                  </a>
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModal-<%=shc._id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel"><%=shc.name%></h5>
+                          <button type="button" class="close btn" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <img src="<%=shc.imagePath%>" alt="" style="width:100%">
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </td>
+                <td data-label="Name" class="mobile-display" id="prod1"><%= shc.name %></td>
+                <td data-label="Type" class="mobile-hidden"><%= shc.type %></td>
+                <td data-label="Content" class="mobile-hidden"><%= shc.content %></td>
+                <td data-label="Actual Price"><h6 class="strike">&#8377;<%= shc.actualPrice %></h6></td>
+                <td data-label="Amount" class="mobile-display">&#8377;<%= shc.discountPrice %></td>
+
+                <input type="hidden" name="shcLength" id="shcLength" value="<%=shcLength%>">
+                <input type="hidden" name="actualValue" id="12actualValue_<%=index%>" value="<%= shc.actualPrice %>">
+                <input type="hidden" name="priceValue" id="12priceValue_<%=index%>" value="<%= shc.discountPrice %>">
+                <input type="hidden" name="actSubTotal" id="12actSubTotal_<%=index%>" value>
+                <input type="hidden" name="ids" id="ids" value="<%=shc._id%>">
+                <input type="hidden" name="name" id="name" value="<%=shc.name%>">
+                <input type="hidden" name="type" id="type" value="<%=shc.type%>">
+                <input type="hidden" name="aPrice" id="aPrice" value="<%=shc.actualPrice%>">
+                <input type="hidden" name="dPrice" id="dPrice" value="<%=shc.discountPrice%>">
+                <input type="hidden" name="content" id="content" value="<%=shc.content%>">
+                <input type="hidden" name="netSHCValues" id="netSHCValues" value>
+                <input type="hidden" name="shcTotalProducts" id="shcTotalProducts" value>
+                <input type="hidden" name="shcdiscountTotal" id="shcdiscountTotal" value>
+                <input type="hidden" name="shcActualPrice" id="shcActualPrice" value>
+            
+                <td data-label="Quantity" style="width:10%;"><input type="text" inputmode="numeric" class="form-control valueBox shcqty quantity" value min="0" name="qty" defaultValue=0 id="shcqty" onkeyup="doMathSHC('<%=index%>')" placeholder="Qty"></td>
+                <td data-label="Total" style="width:10%;"><input type="number" class="form-control valueBox total" id="12tempTotal_<%=index%>" value disabled ></td>
+              </tr>
+            
+              <% } %>
+             <% }) %>
+              
+            </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 13 Handle Crackers -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="col-md-12 col-12 table-striped table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Code</th>
+                <th scope="col">Product</th>
+                <th scope="col">Name</th>
+                <th scope="col">Type</th>
+                <th scope="col">Content</th>
+                <th scope="col">Actual Price</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+             
+    <!-- Handle Crackers -->
+              <div class="categDiv">
+                <h5 class="categHead">HANDLE CRACKERS</h5>
+              </div>
+             <% hc.forEach((hc,index) => { %>
+              
+               <% if (hc.availability) { %>
+                 
+              <tr>
+                <td data-label="Code" class="mobile-display"><%= hc.code %></td>
+                <td data-label="Product" class="mobile-display">
+                  
+                  
+                  <!-- Button trigger modal -->
+                  <a type="button" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#exampleModal-<%=hc._id%>">
+                    <img class="img-fluid productImg" src="<%= hc.imagePath %>" alt="">
+                  </a>
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModal-<%=hc._id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel"><%=hc.name%></h5>
+                          <button type="button" class="close btn" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <img src="<%=hc.imagePath%>" alt="" style="width:100%">
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </td>
+                <td data-label="Name" class="mobile-display" id="prod1"><%= hc.name %></td>
+                <td data-label="Type" class="mobile-hidden"><%= hc.type %></td>
+                <td data-label="Content" class="mobile-hidden"><%= hc.content %></td>
+                <td data-label="Actual Price"><h6 class="strike">&#8377;<%= hc.actualPrice %></h6></td>
+                <td data-label="Amount" class="mobile-display">&#8377;<%= hc.discountPrice %></td>
+
+                <input type="hidden" name="hcLength" id="hcLength" value="<%=hcLength%>">
+                <input type="hidden" name="actualValue" id="13actualValue_<%=index%>" value="<%= hc.actualPrice %>">
+                <input type="hidden" name="priceValue" id="13priceValue_<%=index%>" value="<%= hc.discountPrice %>">
+                <input type="hidden" name="actSubTotal" id="13actSubTotal_<%=index%>" value>
+                <input type="hidden" name="ids" id="ids" value="<%=hc._id%>">
+                <input type="hidden" name="name" id="name" value="<%=hc.name%>">
+                <input type="hidden" name="type" id="type" value="<%=hc.type%>">
+                <input type="hidden" name="aPrice" id="aPrice" value="<%=hc.actualPrice%>">
+                <input type="hidden" name="dPrice" id="dPrice" value="<%=hc.discountPrice%>">
+                <input type="hidden" name="content" id="content" value="<%=hc.content%>">
+                <input type="hidden" name="netHCValues" id="netHCValues" value>
+                <input type="hidden" name="hcTotalProducts" id="hcTotalProducts" value>
+                <input type="hidden" name="hcdiscountTotal" id="hcdiscountTotal" value>
+                <input type="hidden" name="hcActualPrice" id="hcActualPrice" value>
+            
+                <td data-label="Quantity" style="width:10%;"><input type="text" inputmode="numeric" class="form-control valueBox hcqty quantity" value min="0" name="qty" defaultValue=0 id="hcqty" onkeyup="doMathHC('<%=index%>')" placeholder="Qty"></td>
+                <td data-label="Total" style="width:10%;"><input type="number" class="form-control valueBox total" id="13tempTotal_<%=index%>" value disabled ></td>
+              </tr>
+            
+              <% } %>
+             <% }) %>
+              
+            </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 11 New Novelties -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="col-md-12 col-12 table-striped table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Code</th>
+                <th scope="col">Product</th>
+                <th scope="col">Name</th>
+                <th scope="col">Type</th>
+                <th scope="col">Content</th>
+                <th scope="col">Actual Price</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+             
+    <!-- New Novelties -->
+              <div class="categDiv">
+                <h5 class="categHead">NEW NOVELTIES</h5>
+              </div>
+             <% nn.forEach((nn,index) => { %>
+              
+               <% if (nn.availability) { %>
+                 
+              <tr>
+                <td data-label="Code" class="mobile-display"><%= nn.code %></td>
+                <td data-label="Product" class="mobile-display">
+                  
+                  
+                  <!-- Button trigger modal -->
+                  <a type="button" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#exampleModal-<%=nn._id%>">
+                    <img class="img-fluid productImg" src="<%= nn.imagePath %>" alt="">
+                  </a>
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModal-<%=nn._id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel"><%=nn.name%></h5>
+                          <button type="button" class="close btn" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <img src="<%=nn.imagePath%>" alt="" style="width:100%">
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </td>
+                <td data-label="Name" class="mobile-display" id="prod1"><%= nn.name %></td>
+                <td data-label="Type" class="mobile-hidden"><%= nn.type %></td>
+                <td data-label="Content" class="mobile-hidden"><%= nn.content %></td>
+                <td data-label="Actual Price"><h6 class="strike">&#8377;<%= nn.actualPrice %></h6></td>
+                <td data-label="Amount" class="mobile-display">&#8377;<%= nn.discountPrice %></td>
+
+                <input type="hidden" name="nnLength" id="nnLength" value="<%=nnLength%>">
+                <input type="hidden" name="actualValue" id="11actualValue_<%=index%>" value="<%= nn.actualPrice %>">
+                <input type="hidden" name="priceValue" id="11priceValue_<%=index%>" value="<%= nn.discountPrice %>">
+                <input type="hidden" name="actSubTotal" id="11actSubTotal_<%=index%>" value>
+                <input type="hidden" name="ids" id="ids" value="<%=nn._id%>">
+                <input type="hidden" name="name" id="name" value="<%=nn.name%>">
+                <input type="hidden" name="type" id="type" value="<%=nn.type%>">
+                <input type="hidden" name="aPrice" id="aPrice" value="<%=nn.actualPrice%>">
+                <input type="hidden" name="dPrice" id="dPrice" value="<%=nn.discountPrice%>">
+                <input type="hidden" name="content" id="content" value="<%=nn.content%>">
+                <input type="hidden" name="netNNValues" id="netNNValues" value>
+                <input type="hidden" name="nnTotalProducts" id="nnTotalProducts" value>
+                <input type="hidden" name="nndiscountTotal" id="nndiscountTotal" value>
+                <input type="hidden" name="nnActualPrice" id="nnActualPrice" value>
+            
+                <td data-label="Quantity" style="width:10%;"><input type="text" inputmode="numeric" class="form-control valueBox nnqty quantity" value min="0" name="qty" defaultValue=0 id="nnqty" onkeyup="doMathNN('<%=index%>')" placeholder="Qty"></td>
+                <td data-label="Total" style="width:10%;"><input type="number" class="form-control valueBox total" id="11tempTotal_<%=index%>" value disabled ></td>
+              </tr>
+            
+              <% } %>
+             <% }) %>
+              
+            </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 14 V Series -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="col-md-12 col-12 table-striped table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Code</th>
+                <th scope="col">Product</th>
+                <th scope="col">Name</th>
+                <th scope="col">Type</th>
+                <th scope="col">Content</th>
+                <th scope="col">Actual Price</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+             
+    <!-- V Series -->
+              <div class="categDiv">
+                <h5 class="categHead">V SERIES</h5>
+              </div>
+             <% vs.forEach((vs,index) => { %>
+              
+               <% if (vs.availability) { %>
+                 
+              <tr>
+                <td data-label="Code" class="mobile-display"><%= vs.code %></td>
+                <td data-label="Product" class="mobile-display">
+                  
+                  
+                  <!-- Button trigger modal -->
+                  <a type="button" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#exampleModal-<%=vs._id%>">
+                    <img class="img-fluid productImg" src="<%= vs.imagePath %>" alt="">
+                  </a>
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModal-<%=vs._id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel"><%=vs.name%></h5>
+                          <button type="button" class="close btn" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <img src="<%=vs.imagePath%>" alt="" style="width:100%">
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </td>
+                <td data-label="Name" class="mobile-display" id="prod1"><%= vs.name %></td>
+                <td data-label="Type" class="mobile-hidden"><%= vs.type %></td>
+                <td data-label="Content" class="mobile-hidden"><%= vs.content %></td>
+                <td data-label="Actual Price"><h6 class="strike">&#8377;<%= vs.actualPrice %></h6></td>
+                <td data-label="Amount" class="mobile-display">&#8377;<%= vs.discountPrice %></td>
+
+                <input type="hidden" name="vsLength" id="vsLength" value="<%=vsLength%>">
+                <input type="hidden" name="actualValue" id="14actualValue_<%=index%>" value="<%= vs.actualPrice %>">
+                <input type="hidden" name="priceValue" id="14priceValue_<%=index%>" value="<%= vs.discountPrice %>">
+                <input type="hidden" name="actSubTotal" id="14actSubTotal_<%=index%>" value>
+                <input type="hidden" name="ids" id="ids" value="<%=vs._id%>">
+                <input type="hidden" name="name" id="name" value="<%=vs.name%>">
+                <input type="hidden" name="type" id="type" value="<%=vs.type%>">
+                <input type="hidden" name="aPrice" id="aPrice" value="<%=vs.actualPrice%>">
+                <input type="hidden" name="dPrice" id="dPrice" value="<%=vs.discountPrice%>">
+                <input type="hidden" name="content" id="content" value="<%=vs.content%>">
+                <input type="hidden" name="netVSValues" id="netVSValues" value>
+                <input type="hidden" name="vsTotalProducts" id="vsTotalProducts" value>
+                <input type="hidden" name="vsdiscountTotal" id="vsdiscountTotal" value>
+                <input type="hidden" name="vsActualPrice" id="vsActualPrice" value>
+            
+                <td data-label="Quantity" style="width:10%;"><input type="text" inputmode="numeric" class="form-control valueBox vsqty quantity" value min="0" name="qty" defaultValue=0 id="vsqty" onkeyup="doMathVS('<%=index%>')" placeholder="Qty"></td>
+                <td data-label="Total" style="width:10%;"><input type="number" class="form-control valueBox total" id="14tempTotal_<%=index%>" value disabled ></td>
+              </tr>
+            
+              <% } %>
+             <% }) %>
+              
+            </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 15 Sparklers -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="col-md-12 col-12 table-striped table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Code</th>
+                <th scope="col">Product</th>
+                <th scope="col">Name</th>
+                <th scope="col">Type</th>
+                <th scope="col">Content</th>
+                <th scope="col">Actual Price</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+             
+    <!-- Sparklers -->
+              <div class="categDiv">
+                <h5 class="categHead">SPARKLERS</h5>
+              </div>
+             <% s.forEach((s,index) => { %>
+              
+               <% if (s.availability) { %>
+                 
+              <tr>
+                <td data-label="Code" class="mobile-display"><%= s.code %></td>
+                <td data-label="Product" class="mobile-display">
+                  
+                  
+                  <!-- Button trigger modal -->
+                  <a type="button" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#exampleModal-<%=s._id%>">
+                    <img class="img-fluid productImg" src="<%= s.imagePath %>" alt="">
+                  </a>
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModal-<%=s._id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel"><%=s.name%></h5>
+                          <button type="button" class="close btn" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <img src="<%=s.imagePath%>" alt="" style="width:100%">
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </td>
+                <td data-label="Name" class="mobile-display" id="prod1"><%= s.name %></td>
+                <td data-label="Type" class="mobile-hidden"><%= s.type %></td>
+                <td data-label="Content" class="mobile-hidden"><%= s.content %></td>
+                <td data-label="Actual Price"><h6 class="strike">&#8377;<%= s.actualPrice %></h6></td>
+                <td data-label="Amount" class="mobile-display">&#8377;<%= s.discountPrice %></td>
+
+                <input type="hidden" name="sLength" id="sLength" value="<%=sLength%>">
+                <input type="hidden" name="actualValue" id="15actualValue_<%=index%>" value="<%= s.actualPrice %>">
+                <input type="hidden" name="priceValue" id="15priceValue_<%=index%>" value="<%= s.discountPrice %>">
+                <input type="hidden" name="actSubTotal" id="15actSubTotal_<%=index%>" value>
+                <input type="hidden" name="ids" id="ids" value="<%=s._id%>">
+                <input type="hidden" name="name" id="name" value="<%=s.name%>">
+                <input type="hidden" name="type" id="type" value="<%=s.type%>">
+                <input type="hidden" name="aPrice" id="aPrice" value="<%=s.actualPrice%>">
+                <input type="hidden" name="dPrice" id="dPrice" value="<%=s.discountPrice%>">
+                <input type="hidden" name="content" id="content" value="<%=s.content%>">
+                <input type="hidden" name="netSValues" id="netSValues" value>
+                <input type="hidden" name="sTotalProducts" id="sTotalProducts" value>
+                <input type="hidden" name="sdiscountTotal" id="sdiscountTotal" value>
+                <input type="hidden" name="sActualPrice" id="sActualPrice" value>
+            
+                <td data-label="Quantity" style="width:10%;"><input type="text" inputmode="numeric" class="form-control valueBox sqty quantity" value min="0" name="qty" defaultValue=0 id="sqty" onkeyup="doMathS('<%=index%>')" placeholder="Qty"></td>
+                <td data-label="Total" style="width:10%;"><input type="number" class="form-control valueBox total" id="15tempTotal_<%=index%>" value disabled ></td>
+              </tr>
+            
+              <% } %>
+             <% }) %>
+              
+            </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 16 Chota Fancy -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="col-md-12 col-12 table-striped table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Code</th>
+                <th scope="col">Product</th>
+                <th scope="col">Name</th>
+                <th scope="col">Type</th>
+                <th scope="col">Content</th>
+                <th scope="col">Actual Price</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+             
+    <!-- Chota Fancy -->
+              <div class="categDiv">
+                <h5 class="categHead">CHOTA FANCY</h5>
+              </div>
+             <% chf.forEach((chf,index) => { %>
+              
+               <% if (chf.availability) { %>
+                 
+              <tr>
+                <td data-label="Code" class="mobile-display"><%= chf.code %></td>
+                <td data-label="Product" class="mobile-display">
+                  
+                  
+                  <!-- Button trigger modal -->
+                  <a type="button" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#exampleModal-<%=chf._id%>">
+                    <img class="img-fluid productImg" src="<%= chf.imagePath %>" alt="">
+                  </a>
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModal-<%=chf._id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel"><%=chf.name%></h5>
+                          <button type="button" class="close btn" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <img src="<%=chf.imagePath%>" alt="" style="width:100%">
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </td>
+                <td data-label="Name" class="mobile-display" id="prod1"><%= chf.name %></td>
+                <td data-label="Type" class="mobile-hidden"><%= chf.type %></td>
+                <td data-label="Content" class="mobile-hidden"><%= chf.content %></td>
+                <td data-label="Actual Price"><h6 class="strike">&#8377;<%= chf.actualPrice %></h6></td>
+                <td data-label="Amount" class="mobile-display">&#8377;<%= chf.discountPrice %></td>
+
+                <input type="hidden" name="chfLength" id="chfLength" value="<%=chfLength%>">
+                <input type="hidden" name="actualValue" id="16actualValue_<%=index%>" value="<%= chf.actualPrice %>">
+                <input type="hidden" name="priceValue" id="16priceValue_<%=index%>" value="<%= chf.discountPrice %>">
+                <input type="hidden" name="actSubTotal" id="16actSubTotal_<%=index%>" value>
+                <input type="hidden" name="ids" id="ids" value="<%=chf._id%>">
+                <input type="hidden" name="name" id="name" value="<%=chf.name%>">
+                <input type="hidden" name="type" id="type" value="<%=chf.type%>">
+                <input type="hidden" name="aPrice" id="aPrice" value="<%=chf.actualPrice%>">
+                <input type="hidden" name="dPrice" id="dPrice" value="<%=chf.discountPrice%>">
+                <input type="hidden" name="content" id="content" value="<%=chf.content%>">
+                <input type="hidden" name="netCHFValues" id="netCHFValues" value>
+                <input type="hidden" name="chfTotalProducts" id="chfTotalProducts" value>
+                <input type="hidden" name="chfdiscountTotal" id="chfdiscountTotal" value>
+                <input type="hidden" name="chfActualPrice" id="chfActualPrice" value>
+            
+                <td data-label="Quantity" style="width:10%;"><input type="text" inputmode="numeric" class="form-control valueBox chfqty quantity" value min="0" name="qty" defaultValue=0 id="chfqty" onkeyup="doMathCHF('<%=index%>')" placeholder="Qty"></td>
+                <td data-label="Total" style="width:10%;"><input type="number" class="form-control valueBox total" id="16tempTotal_<%=index%>" value disabled ></td>
+              </tr>
+            
+              <% } %>
+             <% }) %>
+              
+            </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 17 Aerial Fancy -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="col-md-12 col-12 table-striped table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Code</th>
+                <th scope="col">Product</th>
+                <th scope="col">Name</th>
+                <th scope="col">Type</th>
+                <th scope="col">Content</th>
+                <th scope="col">Actual Price</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+             
+    <!-- Aerial Fancy -->
+              <div class="categDiv">
+                <h5 class="categHead">AERIAL FANCY</h5>
+              </div>
+             <% af.forEach((af,index) => { %>
+              
+               <% if (af.availability) { %>
+                 
+              <tr>
+                <td data-label="Code" class="mobile-display"><%= af.code %></td>
+                <td data-label="Product" class="mobile-display">
+                  
+                  
+                  <!-- Button trigger modal -->
+                  <a type="button" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#exampleModal-<%=af._id%>">
+                    <img class="img-fluid productImg" src="<%= af.imagePath %>" alt="">
+                  </a>
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModal-<%=af._id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel"><%=af.name%></h5>
+                          <button type="button" class="close btn" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <img src="<%=af.imagePath%>" alt="" style="width:100%">
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </td>
+                <td data-label="Name" class="mobile-display" id="prod1"><%= af.name %></td>
+                <td data-label="Type" class="mobile-hidden"><%= af.type %></td>
+                <td data-label="Content" class="mobile-hidden"><%= af.content %></td>
+                <td data-label="Actual Price"><h6 class="strike">&#8377;<%= af.actualPrice %></h6></td>
+                <td data-label="Amount" class="mobile-display">&#8377;<%= af.discountPrice %></td>
+
+                <input type="hidden" name="afLength" id="afLength" value="<%=afLength%>">
+                <input type="hidden" name="actualValue" id="17actualValue_<%=index%>" value="<%= af.actualPrice %>">
+                <input type="hidden" name="priceValue" id="17priceValue_<%=index%>" value="<%= af.discountPrice %>">
+                <input type="hidden" name="actSubTotal" id="17actSubTotal_<%=index%>" value>
+                <input type="hidden" name="ids" id="ids" value="<%=af._id%>">
+                <input type="hidden" name="name" id="name" value="<%=af.name%>">
+                <input type="hidden" name="type" id="type" value="<%=af.type%>">
+                <input type="hidden" name="aPrice" id="aPrice" value="<%=af.actualPrice%>">
+                <input type="hidden" name="dPrice" id="dPrice" value="<%=af.discountPrice%>">
+                <input type="hidden" name="content" id="content" value="<%=af.content%>">
+                <input type="hidden" name="netAFValues" id="netAFValues" value>
+                <input type="hidden" name="afTotalProducts" id="afTotalProducts" value>
+                <input type="hidden" name="afdiscountTotal" id="afdiscountTotal" value>
+                <input type="hidden" name="afActualPrice" id="afActualPrice" value>
+            
+                <td data-label="Quantity" style="width:10%;"><input type="text" inputmode="numeric" class="form-control valueBox afqty quantity" value min="0" name="qty" defaultValue=0 id="afqty" onkeyup="doMathAF('<%=index%>')" placeholder="Qty"></td>
+                <td data-label="Total" style="width:10%;"><input type="number" class="form-control valueBox total" id="17tempTotal_<%=index%>" value disabled ></td>
+              </tr>
+            
+              <% } %>
+             <% }) %>
+              
+            </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 18 3 Fancy -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="col-md-12 col-12 table-striped table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Code</th>
+                <th scope="col">Product</th>
+                <th scope="col">Name</th>
+                <th scope="col">Type</th>
+                <th scope="col">Content</th>
+                <th scope="col">Actual Price</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+             
+    <!-- 3 Inch Fancy -->
+              <div class="categDiv">
+                <h5 class="categHead">3" FANCY</h5>
+              </div>
+             <% f3.forEach((f3,index) => { %>
+              
+               <% if (f3.availability) { %>
+                 
+              <tr>
+                <td data-label="Code" class="mobile-display"><%= f3.code %></td>
+                <td data-label="Product" class="mobile-display">
+                  
+                  
+                  <!-- Button trigger modal -->
+                  <a type="button" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#exampleModal-<%=f3._id%>">
+                    <img class="img-fluid productImg" src="<%= f3.imagePath %>" alt="">
+                  </a>
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModal-<%=f3._id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel"><%=f3.name%></h5>
+                          <button type="button" class="close btn" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <img src="<%=f3.imagePath%>" alt="" style="width:100%">
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </td>
+                <td data-label="Name" class="mobile-display" id="prod1"><%= f3.name %></td>
+                <td data-label="Type" class="mobile-hidden"><%= f3.type %></td>
+                <td data-label="Content" class="mobile-hidden"><%= f3.content %></td>
+                <td data-label="Actual Price"><h6 class="strike">&#8377;<%= f3.actualPrice %></h6></td>
+                <td data-label="Amount" class="mobile-display">&#8377;<%= f3.discountPrice %></td>
+
+                <input type="hidden" name="f3Length" id="f3Length" value="<%=f3Length%>">
+                <input type="hidden" name="actualValue" id="18actualValue_<%=index%>" value="<%= f3.actualPrice %>">
+                <input type="hidden" name="priceValue" id="18priceValue_<%=index%>" value="<%= f3.discountPrice %>">
+                <input type="hidden" name="actSubTotal" id="18actSubTotal_<%=index%>" value>
+                <input type="hidden" name="ids" id="ids" value="<%=f3._id%>">
+                <input type="hidden" name="name" id="name" value="<%=f3.name%>">
+                <input type="hidden" name="type" id="type" value="<%=f3.type%>">
+                <input type="hidden" name="aPrice" id="aPrice" value="<%=f3.actualPrice%>">
+                <input type="hidden" name="dPrice" id="dPrice" value="<%=f3.discountPrice%>">
+                <input type="hidden" name="content" id="content" value="<%=f3.content%>">
+                <input type="hidden" name="netF3Values" id="netF3Values" value>
+                <input type="hidden" name="f3TotalProducts" id="f3TotalProducts" value>
+                <input type="hidden" name="f3discountTotal" id="f3discountTotal" value>
+                <input type="hidden" name="f3ActualPrice" id="f3ActualPrice" value>
+            
+                <td data-label="Quantity" style="width:10%;"><input type="text" inputmode="numeric" class="form-control valueBox f3qty quantity" value min="0" name="qty" defaultValue=0 id="f3qty" onkeyup="doMathF3('<%=index%>')" placeholder="Qty"></td>
+                <td data-label="Total" style="width:10%;"><input type="number" class="form-control valueBox total" id="18tempTotal_<%=index%>" value disabled ></td>
+              </tr>
+            
+              <% } %>
+             <% }) %>
+              
+            </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 19 3.5 Fancy -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="col-md-12 col-12 table-striped table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Code</th>
+                <th scope="col">Product</th>
+                <th scope="col">Name</th>
+                <th scope="col">Type</th>
+                <th scope="col">Content</th>
+                <th scope="col">Actual Price</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+             
+    <!-- Aerial Fancy -->
+              <div class="categDiv">
+                <h5 class="categHead">3.5" FANCY</h5>
+              </div>
+             <% f35.forEach((f35,index) => { %>
+              
+               <% if (f35.availability) { %>
+                 
+              <tr>
+                <td data-label="Code" class="mobile-display"><%= f35.code %></td>
+                <td data-label="Product" class="mobile-display">
+                  
+                  
+                  <!-- Button trigger modal -->
+                  <a type="button" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#exampleModal-<%=f35._id%>">
+                    <img class="img-fluid productImg" src="<%= f35.imagePath %>" alt="">
+                  </a>
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModal-<%=f35._id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel"><%=f35.name%></h5>
+                          <button type="button" class="close btn" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <img src="<%=f35.imagePath%>" alt="" style="width:100%">
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </td>
+                <td data-label="Name" class="mobile-display" id="prod1"><%= f35.name %></td>
+                <td data-label="Type" class="mobile-hidden"><%= f35.type %></td>
+                <td data-label="Content" class="mobile-hidden"><%= f35.content %></td>
+                <td data-label="Actual Price"><h6 class="strike">&#8377;<%= f35.actualPrice %></h6></td>
+                <td data-label="Amount" class="mobile-display">&#8377;<%= f35.discountPrice %></td>
+
+                <input type="hidden" name="f35Length" id="f35Length" value="<%=f35Length%>">
+                <input type="hidden" name="actualValue" id="19actualValue_<%=index%>" value="<%= f35.actualPrice %>">
+                <input type="hidden" name="priceValue" id="19priceValue_<%=index%>" value="<%= f35.discountPrice %>">
+                <input type="hidden" name="actSubTotal" id="19actSubTotal_<%=index%>" value>
+                <input type="hidden" name="ids" id="ids" value="<%=f35._id%>">
+                <input type="hidden" name="name" id="name" value="<%=f35.name%>">
+                <input type="hidden" name="type" id="type" value="<%=f35.type%>">
+                <input type="hidden" name="aPrice" id="aPrice" value="<%=f35.actualPrice%>">
+                <input type="hidden" name="dPrice" id="dPrice" value="<%=f35.discountPrice%>">
+                <input type="hidden" name="content" id="content" value="<%=f35.content%>">
+                <input type="hidden" name="netF35Values" id="netF35Values" value>
+                <input type="hidden" name="f35TotalProducts" id="f35TotalProducts" value>
+                <input type="hidden" name="f35discountTotal" id="f35discountTotal" value>
+                <input type="hidden" name="f35ActualPrice" id="f35ActualPrice" value>
+            
+                <td data-label="Quantity" style="width:10%;"><input type="text" inputmode="numeric" class="form-control valueBox f35qty quantity" value min="0" name="qty" defaultValue=0 id="f35qty" onkeyup="doMathF35('<%=index%>')" placeholder="Qty"></td>
+                <td data-label="Total" style="width:10%;"><input type="number" class="form-control valueBox total" id="19tempTotal_<%=index%>" value disabled ></td>
+              </tr>
+            
+              <% } %>
+             <% }) %>
+              
+            </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 20 4 Fancy -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="col-md-12 col-12 table-striped table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Code</th>
+                <th scope="col">Product</th>
+                <th scope="col">Name</th>
+                <th scope="col">Type</th>
+                <th scope="col">Content</th>
+                <th scope="col">Actual Price</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+            
+    <!-- Aerial Fancy -->
+              <div class="categDiv">
+                <h5 class="categHead">4" FANCY</h5>
+              </div>
+            <% f4.forEach((f4,index) => { %>
+              
+              <% if (f4.availability) { %>
+                
+              <tr>
+                <td data-label="Code" class="mobile-display"><%= f4.code %></td>
+                <td data-label="Product" class="mobile-display">
+                  
+                  
+                  <!-- Button trigger modal -->
+                  <a type="button" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#exampleModal-<%=f4._id%>">
+                    <img class="img-fluid productImg" src="<%= f4.imagePath %>" alt="">
+                  </a>
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModal-<%=f4._id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel"><%=f4.name%></h5>
+                          <button type="button" class="close btn" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <img src="<%=f4.imagePath%>" alt="" style="width:100%">
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </td>
+                <td data-label="Name" class="mobile-display" id="prod1"><%= f4.name %></td>
+                <td data-label="Type" class="mobile-hidden"><%= f4.type %></td>
+                <td data-label="Content" class="mobile-hidden"><%= f4.content %></td>
+                <td data-label="Actual Price"><h6 class="strike">&#8377;<%= f4.actualPrice %></h6></td>
+                <td data-label="Amount" class="mobile-display">&#8377;<%= f4.discountPrice %></td>
+
+                <input type="hidden" name="f4Length" id="f4Length" value="<%=f4Length%>">
+                <input type="hidden" name="actualValue" id="20actualValue_<%=index%>" value="<%= f4.actualPrice %>">
+                <input type="hidden" name="priceValue" id="20priceValue_<%=index%>" value="<%= f4.discountPrice %>">
+                <input type="hidden" name="actSubTotal" id="20actSubTotal_<%=index%>" value>
+                <input type="hidden" name="ids" id="ids" value="<%=f4._id%>">
+                <input type="hidden" name="name" id="name" value="<%=f4.name%>">
+                <input type="hidden" name="type" id="type" value="<%=f4.type%>">
+                <input type="hidden" name="aPrice" id="aPrice" value="<%=f4.actualPrice%>">
+                <input type="hidden" name="dPrice" id="dPrice" value="<%=f4.discountPrice%>">
+                <input type="hidden" name="content" id="content" value="<%=f4.content%>">
+                <input type="hidden" name="netF4Values" id="netF4Values" value>
+                <input type="hidden" name="f4TotalProducts" id="f4TotalProducts" value>
+                <input type="hidden" name="f4discountTotal" id="f4discountTotal" value>
+                <input type="hidden" name="f4ActualPrice" id="f4ActualPrice" value>
+            
+                <td data-label="Quantity" style="width:10%;"><input type="text" inputmode="numeric" class="form-control valueBox f4qty quantity" value min="0" name="qty" defaultValue=0 id="f4qty" onkeyup="doMathF4('<%=index%>')" placeholder="Qty"></td>
+                <td data-label="Total" style="width:10%;"><input type="number" class="form-control valueBox total" id="20tempTotal_<%=index%>" value disabled ></td>
+              </tr>
+            
+              <% } %>
+            <% }) %>
+              
+            </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 21 Repeating Shots -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="col-md-12 col-12 table-striped table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Code</th>
+                <th scope="col">Product</th>
+                <th scope="col">Name</th>
+                <th scope="col">Type</th>
+                <th scope="col">Content</th>
+                <th scope="col">Actual Price</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+            
+    <!-- Repeating SHots -->
+              <div class="categDiv">
+                <h5 class="categHead">REPEATING SHOTS</h5>
+              </div>
+            <% rs.forEach((rs,index) => { %>
+              
+              <% if (rs.availability) { %>
+                
+              <tr>
+                <td data-label="Code" class="mobile-display"><%= rs.code %></td>
+                <td data-label="Product" class="mobile-display">
+                  
+                  
+                  <!-- Button trigger modal -->
+                  <a type="button" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#exampleModal-<%=rs._id%>">
+                    <img class="img-fluid productImg" src="<%= rs.imagePath %>" alt="">
+                  </a>
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModal-<%=rs._id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel"><%=rs.name%></h5>
+                          <button type="button" class="close btn" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <img src="<%=rs.imagePath%>" alt="" style="width:100%">
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </td>
+                <td data-label="Name" class="mobile-display" id="prod1"><%= rs.name %></td>
+                <td data-label="Type" class="mobile-hidden"><%= rs.type %></td>
+                <td data-label="Content" class="mobile-hidden"><%= rs.content %></td>
+                <td data-label="Actual Price"><h6 class="strike">&#8377;<%= rs.actualPrice %></h6></td>
+                <td data-label="Amount" class="mobile-display">&#8377;<%= rs.discountPrice %></td>
+
+                <input type="hidden" name="rsLength" id="rsLength" value="<%=rsLength%>">
+                <input type="hidden" name="actualValue" id="21actualValue_<%=index%>" value="<%= rs.actualPrice %>">
+                <input type="hidden" name="priceValue" id="21priceValue_<%=index%>" value="<%= rs.discountPrice %>">
+                <input type="hidden" name="actSubTotal" id="21actSubTotal_<%=index%>" value>
+                <input type="hidden" name="ids" id="ids" value="<%=rs._id%>">
+                <input type="hidden" name="name" id="name" value="<%=rs.name%>">
+                <input type="hidden" name="type" id="type" value="<%=rs.type%>">
+                <input type="hidden" name="aPrice" id="aPrice" value="<%=rs.actualPrice%>">
+                <input type="hidden" name="dPrice" id="dPrice" value="<%=rs.discountPrice%>">
+                <input type="hidden" name="content" id="content" value="<%=rs.content%>">
+                <input type="hidden" name="netRSValues" id="netRSValues" value>
+                <input type="hidden" name="rsTotalProducts" id="rsTotalProducts" value>
+                <input type="hidden" name="rsdiscountTotal" id="rsdiscountTotal" value>
+                <input type="hidden" name="rsActualPrice" id="rsActualPrice" value>
+            
+                <td data-label="Quantity" style="width:10%;"><input type="text" inputmode="numeric" class="form-control valueBox rsqty quantity" value min="0" name="qty" defaultValue=0 id="rsqty" onkeyup="doMathRS('<%=index%>')" placeholder="Qty"></td>
+                <td data-label="Total" style="width:10%;"><input type="number" class="form-control valueBox total" id="21tempTotal_<%=index%>" value disabled ></td>
+              </tr>
+            
+              <% } %>
+            <% }) %>
+              
+            </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 22 Net Rate -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="col-md-12 col-12 table-striped table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Code</th>
+                <th scope="col">Product</th>
+                <th scope="col">Name</th>
+                <th scope="col">Type</th>
+                <th scope="col">Content</th>
+                <th scope="col">Actual Price</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+            
+    <!-- Net Rate -->
+              <div class="categDiv">
+                <h5 class="categHead">NET RATE</h5>
+              </div>
+            <% nr.forEach((nr,index) => { %>
+              
+              <% if (nr.availability) { %>
+                
+              <tr>
+                <td data-label="Code" class="mobile-display"><%= nr.code %></td>
+                <td data-label="Product" class="mobile-display">
+                  
+                  
+                  <!-- Button trigger modal -->
+                  <a type="button" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#exampleModal-<%=nr._id%>">
+                    <img class="img-fluid productImg" src="<%= nr.imagePath %>" alt="">
+                  </a>
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModal-<%=nr._id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel"><%=nr.name%></h5>
+                          <button type="button" class="close btn" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <img src="<%=nr.imagePath%>" alt="" style="width:100%">
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </td>
+                <td data-label="Name" class="mobile-display" id="prod1"><%= nr.name %></td>
+                <td data-label="Type" class="mobile-hidden"><%= nr.type %></td>
+                <td data-label="Content" class="mobile-hidden"><%= nr.content %></td>
+                <td data-label="Actual Price"><h6 class="strike">&#8377;<%= nr.actualPrice %></h6></td>
+                <td data-label="Amount" class="mobile-display">&#8377;<%= nr.discountPrice %></td>
+
+                <input type="hidden" name="nrLength" id="nrLength" value="<%=nrLength%>">
+                <input type="hidden" name="actualValue" id="22actualValue_<%=index%>" value="<%= nr.actualPrice %>">
+                <input type="hidden" name="priceValue" id="22priceValue_<%=index%>" value="<%= nr.discountPrice %>">
+                <input type="hidden" name="actSubTotal" id="22actSubTotal_<%=index%>" value>
+                <input type="hidden" name="ids" id="ids" value="<%=nr._id%>">
+                <input type="hidden" name="name" id="name" value="<%=nr.name%>">
+                <input type="hidden" name="type" id="type" value="<%=nr.type%>">
+                <input type="hidden" name="aPrice" id="aPrice" value="<%=nr.actualPrice%>">
+                <input type="hidden" name="dPrice" id="dPrice" value="<%=nr.discountPrice%>">
+                <input type="hidden" name="content" id="content" value="<%=nr.content%>">
+                <input type="hidden" name="netNRValues" id="netNRValues" value>
+                <input type="hidden" name="nrTotalProducts" id="nrTotalProducts" value>
+                <input type="hidden" name="nrdiscountTotal" id="nrdiscountTotal" value>
+                <input type="hidden" name="nrActualPrice" id="nrActualPrice" value>
+            
+                <td data-label="Quantity" style="width:10%;"><input type="text" inputmode="numeric" class="form-control valueBox nrqty quantity" value min="0" name="qty" defaultValue=0 id="nrqty" onkeyup="doMathNR('<%=index%>')" placeholder="Qty"></td>
+                <td data-label="Total" style="width:10%;"><input type="number" class="form-control valueBox total" id="22tempTotal_<%=index%>" value disabled ></td>
+              </tr>
+            
+              <% } %>
+            <% }) %>
+              
+            </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 23 Gift Box -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="col-md-12 col-12 table-striped table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Code</th>
+                <th scope="col">Product</th>
+                <th scope="col">Name</th>
+                <th scope="col">Type</th>
+                <th scope="col">Content</th>
+                <th scope="col">Actual Price</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+            
+    <!-- Gift Box -->
+              <div class="categDiv">
+                <h5 class="categHead">GIFT BOX</h5>
+              </div>
+            <% gb.forEach((gb,index) => { %>
+              
+              <% if (gb.availability) { %>
+                
+              <tr>
+                <td data-label="Code" class="mobile-display"><%= gb.code %></td>
+                <td data-label="Product" class="mobile-display">
+                  
+                  
+                  <!-- Button trigger modal -->
+                  <a type="button" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#exampleModal-<%=gb._id%>">
+                    <img class="img-fluid productImg" src="<%= gb.imagePath %>" alt="">
+                  </a>
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModal-<%=gb._id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel"><%=gb.name%></h5>
+                          <button type="button" class="close btn" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <img src="<%=gb.imagePath%>" alt="" style="width:100%">
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </td>
+                <td data-label="Name" class="mobile-display" id="prod1"><%= gb.name %></td>
+                <td data-label="Type" class="mobile-hidden"><%= gb.type %></td>
+                <td data-label="Content" class="mobile-hidden"><%= gb.content %></td>
+                <td data-label="Actual Price"><h6 class="strike">&#8377;<%= gb.actualPrice %></h6></td>
+                <td data-label="Amount" class="mobile-display">&#8377;<%= gb.discountPrice %></td>
+
+                <input type="hidden" name="gbLength" id="gbLength" value="<%=gbLength%>">
+                <input type="hidden" name="actualValue" id="23actualValue_<%=index%>" value="<%= gb.actualPrice %>">
+                <input type="hidden" name="priceValue" id="23priceValue_<%=index%>" value="<%= gb.discountPrice %>">
+                <input type="hidden" name="actSubTotal" id="23actSubTotal_<%=index%>" value>
+                <input type="hidden" name="ids" id="ids" value="<%=gb._id%>">
+                <input type="hidden" name="name" id="name" value="<%=gb.name%>">
+                <input type="hidden" name="type" id="type" value="<%=gb.type%>">
+                <input type="hidden" name="aPrice" id="aPrice" value="<%=gb.actualPrice%>">
+                <input type="hidden" name="dPrice" id="dPrice" value="<%=gb.discountPrice%>">
+                <input type="hidden" name="content" id="content" value="<%=gb.content%>">
+                <input type="hidden" name="netGBValues" id="netGBValues" value>
+                <input type="hidden" name="gbTotalProducts" id="gbTotalProducts" value>
+                <input type="hidden" name="gbdiscountTotal" id="gbdiscountTotal" value>
+                <input type="hidden" name="gbActualPrice" id="gbActualPrice" value>
+            
+                <td data-label="Quantity" style="width:10%;"><input type="text" inputmode="numeric" class="form-control valueBox gbqty quantity" value min="0" name="qty" defaultValue=0 id="gbqty" onkeyup="doMathGB('<%=index%>')" placeholder="Qty"></td>
+                <td data-label="Total" style="width:10%;"><input type="number" class="form-control valueBox total" id="23tempTotal_<%=index%>" value disabled ></td>
+              </tr>
+            
+              <% } %>
+            <% }) %>
+              
+            </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 24 Select -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="col-md-12 col-12 table-striped table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Code</th>
+                <th scope="col">Product</th>
+                <th scope="col">Name</th>
+                <th scope="col">Type</th>
+                <th scope="col">Content</th>
+                <th scope="col">Actual Price</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+            
+    <!-- New Arrivals -->
+              <div class="categDiv">
+                <h5 class="categHead">NEW ARRIVALS</h5>
+              </div>
+            <% se.forEach((se,index) => { %>
+              
+              <% if (se.availability) { %>
+                
+              <tr>
+                <td data-label="Code" class="mobile-display"><%= se.code %></td>
+                <td data-label="Product" class="mobile-display">
+                  
+                  
+                  <!-- Button trigger modal -->
+                  <a type="button" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#exampleModal-<%=se._id%>">
+                    <img class="img-fluid productImg" src="<%= se.imagePath %>" alt="">
+                  </a>
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModal-<%=se._id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel"><%=se.name%></h5>
+                          <button type="button" class="close btn" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <img src="<%=se.imagePath%>" alt="" style="width:100%">
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </td>
+                <td data-label="Name" class="mobile-display" id="prod1"><%= se.name %></td>
+                <td data-label="Type" class="mobile-hidden"><%= se.type %></td>
+                <td data-label="Content" class="mobile-hidden"><%= se.content %></td>
+                <td data-label="Actual Price"><h6 class="strike">&#8377;<%= se.actualPrice %></h6></td>
+                <td data-label="Amount" class="mobile-display">&#8377;<%= se.discountPrice %></td>
+
+                <input type="hidden" name="seLength" id="seLength" value="<%=seLength%>">
+                <input type="hidden" name="actualValue" id="24actualValue_<%=index%>" value="<%= se.actualPrice %>">
+                <input type="hidden" name="priceValue" id="24priceValue_<%=index%>" value="<%= se.discountPrice %>">
+                <input type="hidden" name="actSubTotal" id="24actSubTotal_<%=index%>" value>
+                <input type="hidden" name="ids" id="ids" value="<%=se._id%>">
+                <input type="hidden" name="name" id="name" value="<%=se.name%>">
+                <input type="hidden" name="type" id="type" value="<%=se.type%>">
+                <input type="hidden" name="aPrice" id="aPrice" value="<%=se.actualPrice%>">
+                <input type="hidden" name="dPrice" id="dPrice" value="<%=se.discountPrice%>">
+                <input type="hidden" name="content" id="content" value="<%=se.content%>">
+                <input type="hidden" name="netSEValues" id="netSEValues" value>
+                <input type="hidden" name="seTotalProducts" id="seTotalProducts" value>
+                <input type="hidden" name="sediscountTotal" id="sediscountTotal" value>
+                <input type="hidden" name="seActualPrice" id="seActualPrice" value>
+            
+                <td data-label="Quantity" style="width:10%;"><input type="text" inputmode="numeric" class="form-control valueBox seqty quantity" value min="0" name="qty" defaultValue=0 id="seqty" onkeyup="doMathSE('<%=index%>')" placeholder="Qty"></td>
+                <td data-label="Total" style="width:10%;"><input type="number" class="form-control valueBox total" id="24tempTotal_<%=index%>" value disabled ></td>
+              </tr>
+            
+              <% } %>
+            <% }) %>
+              
+            </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="mb-3">
+          <input type="text" pattern="[A-Za-z ]{1,32}" class="form-control"  name="partyName"  id="partyName" required placeholder="Name">
+        </div>
+        <div class="mb-3">
+          <input pattern="[6789][0-9]{9}" type="text" class="form-control" name="partyMob" id="partyMob" required placeholder="Contact">
+        </div>
+        <div class="mb-3">
+          <input type="email" class="form-control" name="partyEmail" id="partyEmail" required placeholder="Email">
+        </div>
+        <div class="mb-3">
+          <textarea class="form-control" id="partyAddress" name="partyAddress" rows="3" required placeholder="Address"></textarea>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <table class="table" style="text-align: right; padding: 2rem 5rem !important;">
+         
+          <tbody>
+            <tr>
+              <th scope="col">Net Total</th>
+              <td><p style="margin-bottom: 0px;" id="overallTotall"></p></td>
+              <input type="hidden" name="overallTotalVal" id="overallTotalVal" value>
+            </tr>
+
+            <tr>
+              <th scope="col">Discount Total</th>
+              <td><p style="margin-bottom: 0px;" id="discountTotall"></p></td>
+              <input type="hidden" name="discountTotalVal" id="discountTotalVal" value>
+            </tr>
+
+            <tr>
+              <th scope="col">Sub Total</th>
+              <td><p style="margin-bottom: 0px;" id="subTotall"></p></td>
+              <input type="hidden" name="subTotalVal" id="subTotalVal" value>
+            </tr>
+
+            <tr>
+              <th scope="col">Min Order Value</th>
+              <td><p style="margin-bottom: 0px; color: red; font-weight: bold;">&#8377; 1,000.00</p></td>
+            </tr>
+
+            <tr>
+              <th scope="col">Packing Charge</th>
+              <td><p style="margin-bottom: 0px;" id="pckCharge"></p></td>
+              <input type="hidden" name="pckChargeVal" id="pckChargeVal" value>
+            </tr>
+
+            <tr>
+              <th scope="col">Overall Total</th>
+              <td><p style="margin-bottom: 0px;" id="finalBillValue"></p></td>
+              <input type="hidden" name="finalBillValuee" id="finalBillValuee" value>
+            </tr>
+
+            <tr>
+              <th></th>
+              <td><button type="submit" style="text-align:right;" id="submitButton" disabled class="btn btn-sm btn-warning">Submit</button></td>
+            </tr>
+
+          </tbody>
+        </table>
+        
+      </div>
+    </div>
+   
+  </form>
+</div>
+  
+<%- include ("partials/footer") %>
+
+<script>
+  function doMathSC(i) {
+
+    var quantities = document.getElementsByClassName('scqty');
+    var scLength = document.getElementById('scLength').value;
+
+    // To calculate row wise subtotal and actual price
+    var numOne = document.getElementById('1priceValue_'+i).value;
+    var numTwo = quantities[i].value;
+    var numThree = document.getElementById('1actualValue_'+i).value;
+    var discValue = Math.round(Number(numOne) * Number(numTwo));
+    var actValue = Number(numThree) * Number(numTwo);
+    console.log("Act value :" + actValue);
+    document.getElementById('1tempTotal_'+i).value = discValue;
+    document.getElementById('1actSubTotal_'+i).value = actValue;
+
+    // To calculate the total amount of Sound Crackers
+
+    var netSCValues = 0;
+    for(i=0; i<scLength;i++){
+      Math.round(netSCValues += Number(document.getElementById('1tempTotal_'+i).value));
+    }
+
+    document.getElementById('netSCValues').value = netSCValues;
+
+    // To calculate total products quantity
+    var qty = document.getElementsByClassName("scqty");
+    var tempQty = 0;
+    for(j=0; j<scLength;j++){
+      tempQty += Number(scqty[j].value);
+    }
+    document.getElementById('scTotalProducts').value =  tempQty;
+
+    // To Calculate the discount amount
+    var originalPrice=0;
+    var discPrice=0;
+
+    for(i=0;i<scLength;i++){
+      originalPrice += Number(document.getElementById('1actSubTotal_'+i).value);
+      discPrice += Number(document.getElementById('1tempTotal_'+i).value);
+    }
+    var discountedValue = originalPrice - discPrice;
+    document.getElementById('scdiscountTotal').value = discountedValue.toFixed(2);
+    document.getElementById('scActualPrice').value = originalPrice.toFixed(2);
+    
+    calcOverallTotal();
+
+  }
+
+  function doMathGC(i) {
+
+    var quantities = document.getElementsByClassName('gcqty');
+    var gcLength = document.getElementById('gcLength').value;
+
+    // To calculate row wise subtotal and actual price
+    var numOne = document.getElementById('2priceValue_'+i).value;
+    var numTwo = quantities[i].value;
+    var numThree = document.getElementById('2actualValue_'+i).value;
+    var discValue = Math.round(Number(numOne) * Number(numTwo));
+    var actValue = Number(numThree) * Number(numTwo);
+    console.log("Act value :" + actValue);
+    document.getElementById('2tempTotal_'+i).value = discValue;
+    document.getElementById('2actSubTotal_'+i).value = actValue;
+
+    // To calculate the total amount of Sound Crackers
+
+    var netGCValues = 0;
+    for(i=0; i<gcLength;i++){
+      Math.round(netGCValues += Number(document.getElementById('2tempTotal_'+i).value));
+    }
+    
+    document.getElementById('netGCValues').value = netGCValues;
+
+    // To calculate total products quantity
+    var qty = document.getElementsByClassName("gcqty");
+    var tempQty = 0;
+    for(j=0; j<gcLength;j++){
+      tempQty += Number(gcqty[j].value);
+    }
+    document.getElementById('gcTotalProducts').value =  tempQty;
+
+    // To Calculate the discount amount
+    var originalPrice=0;
+    var discPrice=0;
+
+    for(i=0;i<gcLength;i++){
+      originalPrice += Number(document.getElementById('2actSubTotal_'+i).value);
+      discPrice += Number(document.getElementById('2tempTotal_'+i).value);
+    }
+    var discountedValue = originalPrice - discPrice;
+    document.getElementById('gcdiscountTotal').value = discountedValue.toFixed(2);
+    document.getElementById('gcActualPrice').value = originalPrice.toFixed(2);
+
+    calcOverallTotal();
+
+}
+
+  function doMathFP(i) {
+
+  var quantities = document.getElementsByClassName('fpqty');
+  var fpLength = document.getElementById('fpLength').value;
+
+  // To calculate row wise subtotal and actual price
+  var numOne = document.getElementById('3priceValue_'+i).value;
+  var numTwo = quantities[i].value;
+  var numThree = document.getElementById('3actualValue_'+i).value;
+  var discValue = Math.round(Number(numOne) * Number(numTwo));
+  var actValue = Number(numThree) * Number(numTwo);
+  console.log("Act value :" + actValue);
+  document.getElementById('3tempTotal_'+i).value = discValue;
+  document.getElementById('3actSubTotal_'+i).value = actValue;
+
+  // To calculate the total amount of Sound Crackers
+
+  var netFPValues = 0;
+  for(i=0; i<fpLength;i++){
+    Math.round(netFPValues += Number(document.getElementById('3tempTotal_'+i).value));
+  }
+
+  document.getElementById('netFPValues').value = netFPValues;
+
+  // To calculate total products quantity
+  var qty = document.getElementsByClassName("fpqty");
+  var tempQty = 0;
+  for(j=0; j<fpLength;j++){
+    tempQty += Number(fpqty[j].value);
+  }
+  document.getElementById('fpTotalProducts').value =  tempQty;
+
+  // To Calculate the discount amount
+  var originalPrice=0;
+  var discPrice=0;
+
+  for(i=0;i<fpLength;i++){
+    originalPrice += Number(document.getElementById('3actSubTotal_'+i).value);
+    discPrice += Number(document.getElementById('3tempTotal_'+i).value);
+  }
+  var discountedValue = originalPrice - discPrice;
+  document.getElementById('fpdiscountTotal').value = discountedValue.toFixed(2);
+  document.getElementById('fpActualPrice').value = originalPrice.toFixed(2);
+
+  calcOverallTotal();
+
+  }
+
+  function doMathBC(i) {
+
+      var quantities = document.getElementsByClassName('bcqty');
+      var bcLength = document.getElementById('bcLength').value;
+
+      // To calculate row wise subtotal and actual price
+      var numOne = document.getElementById('4priceValue_'+i).value;
+      var numTwo = quantities[i].value;
+      var numThree = document.getElementById('4actualValue_'+i).value;
+      var discValue = Math.round(Number(numOne) * Number(numTwo));
+      var actValue = Number(numThree) * Number(numTwo);
+      console.log("Act value :" + actValue);
+      document.getElementById('4tempTotal_'+i).value = discValue;
+      document.getElementById('4actSubTotal_'+i).value = actValue;
+
+      // To calculate the total amount of Sound Crackers
+
+      var netBCValues = 0;
+      for(i=0; i<bcLength;i++){
+        Math.round(netBCValues += Number(document.getElementById('4tempTotal_'+i).value));
+      }
+
+      document.getElementById('netBCValues').value = netBCValues;
+
+      // To calculate total products quantity
+      var qty = document.getElementsByClassName("bcqty");
+      var tempQty = 0;
+      for(j=0; j<bcLength;j++){
+        tempQty += Number(bcqty[j].value);
+      }
+      document.getElementById('bcTotalProducts').value =  tempQty;
+
+      // To Calculate the discount amount
+      var originalPrice=0;
+      var discPrice=0;
+
+      for(i=0;i<bcLength;i++){
+        originalPrice += Number(document.getElementById('4actSubTotal_'+i).value);
+        discPrice += Number(document.getElementById('4tempTotal_'+i).value);
+      }
+      var discountedValue = originalPrice - discPrice;
+      document.getElementById('bcdiscountTotal').value = discountedValue.toFixed(2);
+      document.getElementById('bcActualPrice').value = originalPrice.toFixed(2);
+
+      calcOverallTotal();
+
+      }
+
+  function doMathLC(i) {
+
+    var quantities = document.getElementsByClassName('lcqty');
+    var lcLength = document.getElementById('lcLength').value;
+
+    // To calculate row wise subtotal and actual price
+    var numOne = document.getElementById('5priceValue_'+i).value;
+    var numTwo = quantities[i].value;
+    var numThree = document.getElementById('5actualValue_'+i).value;
+    var discValue = Math.round(Number(numOne) * Number(numTwo));
+    var actValue = Number(numThree) * Number(numTwo);
+    console.log("Act value :" + actValue);
+    document.getElementById('5tempTotal_'+i).value = discValue;
+    document.getElementById('5actSubTotal_'+i).value = actValue;
+
+    // To calculate the total amount of Sound Crackers
+
+    var netLCValues = 0;
+    for(i=0; i<lcLength;i++){
+      Math.round(netLCValues += Number(document.getElementById('5tempTotal_'+i).value));
+    }
+
+    document.getElementById('netLCValues').value = netLCValues;
+
+    // To calculate total products quantity
+    var qty = document.getElementsByClassName("lcqty");
+    var tempQty = 0;
+    for(j=0; j<lcLength;j++){
+      tempQty += Number(lcqty[j].value);
+    }
+    document.getElementById('lcTotalProducts').value =  tempQty;
+
+    // To Calculate the discount amount
+    var originalPrice=0;
+    var discPrice=0;
+
+    for(i=0;i<lcLength;i++){
+      originalPrice += Number(document.getElementById('5actSubTotal_'+i).value);
+      discPrice += Number(document.getElementById('5tempTotal_'+i).value);
+    }
+    var discountedValue = originalPrice - discPrice;
+    document.getElementById('lcdiscountTotal').value = discountedValue.toFixed(2);
+    document.getElementById('lcActualPrice').value = originalPrice.toFixed(2);
+
+    calcOverallTotal();
+
+    }
+
+  function doMathLS(i) {
+
+    var quantities = document.getElementsByClassName('lsqty');
+    var lsLength = document.getElementById('lsLength').value;
+
+    // To calculate row wise subtotal and actual price
+    var numOne = document.getElementById('6priceValue_'+i).value;
+    var numTwo = quantities[i].value;
+    var numThree = document.getElementById('6actualValue_'+i).value;
+    var discValue = Math.round(Number(numOne) * Number(numTwo));
+    var actValue = Number(numThree) * Number(numTwo);
+    console.log("Act value :" + actValue);
+    document.getElementById('6tempTotal_'+i).value = discValue;
+    document.getElementById('6actSubTotal_'+i).value = actValue;
+
+    // To calculate the total amount of Sound Crackers
+
+    var netLSValues = 0;
+    for(i=0; i<lsLength;i++){
+      Math.round(netLSValues += Number(document.getElementById('6tempTotal_'+i).value));
+    }
+
+    document.getElementById('netLSValues').value = netLSValues;
+
+    // To calculate total products quantity
+    var qty = document.getElementsByClassName("lsqty");
+    var tempQty = 0;
+    for(j=0; j<lsLength;j++){
+      tempQty += Number(lsqty[j].value);
+    }
+    document.getElementById('lsTotalProducts').value =  tempQty;
+
+    // To Calculate the discount amount
+    var originalPrice=0;
+    var discPrice=0;
+
+    for(i=0;i<lsLength;i++){
+      originalPrice += Number(document.getElementById('6actSubTotal_'+i).value);
+      discPrice += Number(document.getElementById('6tempTotal_'+i).value);
+    }
+    var discountedValue = originalPrice - discPrice;
+    document.getElementById('lsdiscountTotal').value = discountedValue.toFixed(2);
+    document.getElementById('lsActualPrice').value = originalPrice.toFixed(2);
+
+    calcOverallTotal();
+
+    }
+
+  function doMathBO(i) {
+
+      var quantities = document.getElementsByClassName('boqty');
+      var boLength = document.getElementById('boLength').value;
+
+      // To calculate row wise subtotal and actual price
+      var numOne = document.getElementById('7priceValue_'+i).value;
+      var numTwo = quantities[i].value;
+      var numThree = document.getElementById('7actualValue_'+i).value;
+      var discValue = Math.round(Number(numOne) * Number(numTwo));
+      var actValue = Number(numThree) * Number(numTwo);
+      console.log("Act value :" + actValue);
+      document.getElementById('7tempTotal_'+i).value = discValue;
+      document.getElementById('7actSubTotal_'+i).value = actValue;
+
+      // To calculate the total amount of Sound Crackers
+
+      var netBOValues = 0;
+      for(i=0; i<boLength;i++){
+        Math.round(netBOValues += Number(document.getElementById('7tempTotal_'+i).value));
+      }
+
+      document.getElementById('netBOValues').value = netBOValues;
+
+      // To calculate total products quantity
+      var qty = document.getElementsByClassName("boqty");
+      var tempQty = 0;
+      for(j=0; j<boLength;j++){
+        tempQty += Number(boqty[j].value);
+      }
+      document.getElementById('boTotalProducts').value =  tempQty;
+
+      // To Calculate the discount amount
+      var originalPrice=0;
+      var discPrice=0;
+
+      for(i=0;i<boLength;i++){
+        originalPrice += Number(document.getElementById('7actSubTotal_'+i).value);
+        discPrice += Number(document.getElementById('7tempTotal_'+i).value);
+      }
+      var discountedValue = originalPrice - discPrice;
+      document.getElementById('bodiscountTotal').value = discountedValue.toFixed(2);
+      document.getElementById('boActualPrice').value = originalPrice.toFixed(2);
+
+      calcOverallTotal();
+
+      }
+
+  function doMathRO(i) {
+
+    var quantities = document.getElementsByClassName('roqty');
+    var roLength = document.getElementById('roLength').value;
+
+    // To calculate row wise subtotal and actual price
+    var numOne = document.getElementById('8priceValue_'+i).value;
+    var numTwo = quantities[i].value;
+    var numThree = document.getElementById('8actualValue_'+i).value;
+    var discValue = Math.round(Number(numOne) * Number(numTwo));
+    var actValue = Number(numThree) * Number(numTwo);
+    console.log("Act value :" + actValue);
+    document.getElementById('8tempTotal_'+i).value = discValue;
+    document.getElementById('8actSubTotal_'+i).value = actValue;
+
+    // To calculate the total amount of Sound Crackers
+
+    var netROValues = 0;
+    for(i=0; i<roLength;i++){
+      Math.round(netROValues += Number(document.getElementById('8tempTotal_'+i).value));
+    }
+
+    document.getElementById('netROValues').value = netROValues;
+
+    // To calculate total products quantity
+    var qty = document.getElementsByClassName("roqty");
+    var tempQty = 0;
+    for(j=0; j<roLength;j++){
+      tempQty += Number(roqty[j].value);
+    }
+    document.getElementById('roTotalProducts').value =  tempQty;
+
+    // To Calculate the discount amount
+    var originalPrice=0;
+    var discPrice=0;
+
+    for(i=0;i<roLength;i++){
+      originalPrice += Number(document.getElementById('8actSubTotal_'+i).value);
+      discPrice += Number(document.getElementById('8tempTotal_'+i).value);
+    }
+    var discountedValue = originalPrice - discPrice;
+    document.getElementById('rodiscountTotal').value = discountedValue.toFixed(2);
+    document.getElementById('roActualPrice').value = originalPrice.toFixed(2);
+
+    calcOverallTotal();
+
+    }
+  
+  function doMathTS(i) {
+
+    var quantities = document.getElementsByClassName('tsqty');
+    var tsLength = document.getElementById('tsLength').value;
+
+    // To calculate row wise subtotal and actual price
+    var numOne = document.getElementById('9priceValue_'+i).value;
+    var numTwo = quantities[i].value;
+    var numThree = document.getElementById('9actualValue_'+i).value;
+    var discValue = Math.round(Number(numOne) * Number(numTwo));
+    var actValue = Number(numThree) * Number(numTwo);
+    console.log("Act value :" + actValue);
+    document.getElementById('9tempTotal_'+i).value = discValue;
+    document.getElementById('9actSubTotal_'+i).value = actValue;
+
+    // To calculate the total amount of Sound Crackers
+
+    var netTSValues = 0;
+    for(i=0; i<tsLength;i++){
+      Math.round(netTSValues += Number(document.getElementById('9tempTotal_'+i).value));
+    }
+
+    document.getElementById('netTSValues').value = netTSValues;
+
+    // To calculate total products quantity
+    var qty = document.getElementsByClassName("tsqty");
+    var tempQty = 0;
+    for(j=0; j<tsLength;j++){
+      tempQty += Number(tsqty[j].value);
+    }
+    document.getElementById('tsTotalProducts').value =  tempQty;
+
+    // To Calculate the discount amount
+    var originalPrice=0;
+    var discPrice=0;
+
+    for(i=0;i<tsLength;i++){
+      originalPrice += Number(document.getElementById('9actSubTotal_'+i).value);
+      discPrice += Number(document.getElementById('9tempTotal_'+i).value);
+    }
+    var discountedValue = originalPrice - discPrice;
+    document.getElementById('tsdiscountTotal').value = discountedValue.toFixed(2);
+    document.getElementById('tsActualPrice').value = originalPrice.toFixed(2);
+
+    calcOverallTotal();
+
+    }
+
+  function doMathTF(i) {
+
+      var quantities = document.getElementsByClassName('tfqty');
+      var tfLength = document.getElementById('tfLength').value;
+
+      // To calculate row wise subtotal and actual price
+      var numOne = document.getElementById('10priceValue_'+i).value;
+      var numTwo = quantities[i].value;
+      var numThree = document.getElementById('10actualValue_'+i).value;
+      var discValue = Math.round(Number(numOne) * Number(numTwo));
+      var actValue = Number(numThree) * Number(numTwo);
+      console.log("Act value :" + actValue);
+      document.getElementById('10tempTotal_'+i).value = discValue;
+      document.getElementById('10actSubTotal_'+i).value = actValue;
+
+      // To calculate the total amount of Sound Crackers
+
+      var netTFValues = 0;
+      for(i=0; i<tfLength;i++){
+        Math.round(netTFValues += Number(document.getElementById('10tempTotal_'+i).value));
+      }
+
+      document.getElementById('netTFValues').value = netTFValues;
+
+      // To calculate total products quantity
+      var qty = document.getElementsByClassName("tfqty");
+      var tempQty = 0;
+      for(j=0; j<tfLength;j++){
+        tempQty += Number(tfqty[j].value);
+      }
+      document.getElementById('tfTotalProducts').value =  tempQty;
+
+      // To Calculate the discount amount
+      var originalPrice=0;
+      var discPrice=0;
+
+      for(i=0;i<tfLength;i++){
+        originalPrice += Number(document.getElementById('10actSubTotal_'+i).value);
+        discPrice += Number(document.getElementById('10tempTotal_'+i).value);
+      }
+      var discountedValue = originalPrice - discPrice;
+      document.getElementById('tfdiscountTotal').value = discountedValue.toFixed(2);
+      document.getElementById('tfActualPrice').value = originalPrice.toFixed(2);
+
+      calcOverallTotal();
+
+      }
+
+  function doMathNN(i) {
+
+  var quantities = document.getElementsByClassName('nnqty');
+  var nnLength = document.getElementById('nnLength').value;
+
+  // To calculate row wise subtotal and actual price
+  var numOne = document.getElementById('11priceValue_'+i).value;
+  var numTwo = quantities[i].value;
+  var numThree = document.getElementById('11actualValue_'+i).value;
+  var discValue = Math.round(Number(numOne) * Number(numTwo));
+  var actValue = Number(numThree) * Number(numTwo);
+  console.log("Act value :" + actValue);
+  document.getElementById('11tempTotal_'+i).value = discValue;
+  document.getElementById('11actSubTotal_'+i).value = actValue;
+
+  // To calculate the total amount of Sound Crackers
+
+  var netNNValues = 0;
+  for(i=0; i<nnLength;i++){
+    Math.round(netNNValues += Number(document.getElementById('11tempTotal_'+i).value));
+  }
+
+  document.getElementById('netNNValues').value = netNNValues;
+
+  // To calculate total products quantity
+  var qty = document.getElementsByClassName("nnqty");
+  var tempQty = 0;
+  for(j=0; j<nnLength;j++){
+    tempQty += Number(nnqty[j].value);
+  }
+  document.getElementById('nnTotalProducts').value =  tempQty;
+
+  // To Calculate the discount amount
+  var originalPrice=0;
+  var discPrice=0;
+
+  for(i=0;i<nnLength;i++){
+    originalPrice += Number(document.getElementById('11actSubTotal_'+i).value);
+    discPrice += Number(document.getElementById('11tempTotal_'+i).value);
+  }
+  var discountedValue = originalPrice - discPrice;
+  document.getElementById('nndiscountTotal').value = discountedValue.toFixed(2);
+  document.getElementById('nnActualPrice').value = originalPrice.toFixed(2);
+
+  calcOverallTotal();
+
+  }
+
+  function doMathSHC(i) {
+
+    var quantities = document.getElementsByClassName('shcqty');
+    var shcLength = document.getElementById('shcLength').value;
+
+    // To calculate row wise subtotal and actual price
+    var numOne = document.getElementById('12priceValue_'+i).value;
+    var numTwo = quantities[i].value;
+    var numThree = document.getElementById('12actualValue_'+i).value;
+    var discValue = Math.round(Number(numOne) * Number(numTwo));
+    var actValue = Number(numThree) * Number(numTwo);
+    console.log("Act value :" + actValue);
+    document.getElementById('12tempTotal_'+i).value = discValue;
+    document.getElementById('12actSubTotal_'+i).value = actValue;
+
+    // To calculate the total amount of Sound Crackers
+
+    var netSHCValues = 0;
+    for(i=0; i<shcLength;i++){
+      Math.round(netSHCValues += Number(document.getElementById('12tempTotal_'+i).value));
+    }
+
+    document.getElementById('netSHCValues').value = netSHCValues;
+
+    // To calculate total products quantity
+    var qty = document.getElementsByClassName("shcqty");
+    var tempQty = 0;
+    for(j=0; j<shcLength;j++){
+      tempQty += Number(shcqty[j].value);
+    }
+    document.getElementById('shcTotalProducts').value =  tempQty;
+
+    // To Calculate the discount amount
+    var originalPrice=0;
+    var discPrice=0;
+
+    for(i=0;i<shcLength;i++){
+      originalPrice += Number(document.getElementById('12actSubTotal_'+i).value);
+      discPrice += Number(document.getElementById('12tempTotal_'+i).value);
+    }
+    var discountedValue = originalPrice - discPrice;
+    document.getElementById('shcdiscountTotal').value = discountedValue.toFixed(2);
+    document.getElementById('shcActualPrice').value = originalPrice.toFixed(2);
+
+    calcOverallTotal();
+
+    }
+
+  function doMathHC(i) {
+
+      var quantities = document.getElementsByClassName('hcqty');
+      var hcLength = document.getElementById('hcLength').value;
+
+      // To calculate row wise subtotal and actual price
+      var numOne = document.getElementById('13priceValue_'+i).value;
+      var numTwo = quantities[i].value;
+      var numThree = document.getElementById('13actualValue_'+i).value;
+      var discValue = Math.round(Number(numOne) * Number(numTwo));
+      var actValue = Number(numThree) * Number(numTwo);
+      console.log("Act value :" + actValue);
+      document.getElementById('13tempTotal_'+i).value = discValue;
+      document.getElementById('13actSubTotal_'+i).value = actValue;
+
+      // To calculate the total amount of Sound Crackers
+
+      var netHCValues = 0;
+      for(i=0; i<hcLength;i++){
+        Math.round(netHCValues += Number(document.getElementById('13tempTotal_'+i).value));
+      }
+
+      document.getElementById('netHCValues').value = netHCValues;
+
+      // To calculate total products quantity
+      var qty = document.getElementsByClassName("hcqty");
+      var tempQty = 0;
+      for(j=0; j<hcLength;j++){
+        tempQty += Number(hcqty[j].value);
+      }
+      document.getElementById('hcTotalProducts').value =  tempQty;
+
+      // To Calculate the discount amount
+      var originalPrice=0;
+      var discPrice=0;
+
+      for(i=0;i<hcLength;i++){
+        originalPrice += Number(document.getElementById('13actSubTotal_'+i).value);
+        discPrice += Number(document.getElementById('13tempTotal_'+i).value);
+      }
+      var discountedValue = originalPrice - discPrice;
+      document.getElementById('hcdiscountTotal').value = discountedValue.toFixed(2);
+      document.getElementById('hcActualPrice').value = originalPrice.toFixed(2);
+
+      calcOverallTotal();
+
+      }
+     
+  function doMathVS(i) {
+
+    var quantities = document.getElementsByClassName('vsqty');
+    var vsLength = document.getElementById('vsLength').value;
+
+    // To calculate row wise subtotal and actual price
+    var numOne = document.getElementById('14priceValue_'+i).value;
+    var numTwo = quantities[i].value;
+    var numThree = document.getElementById('14actualValue_'+i).value;
+    var discValue = Math.round(Number(numOne) * Number(numTwo));
+    var actValue = Number(numThree) * Number(numTwo);
+    console.log("Act value :" + actValue);
+    document.getElementById('14tempTotal_'+i).value = discValue;
+    document.getElementById('14actSubTotal_'+i).value = actValue;
+
+    // To calculate the total amount of Sound Crackers
+
+    var netVSValues = 0;
+    for(i=0; i<vsLength;i++){
+      Math.round(netVSValues += Number(document.getElementById('14tempTotal_'+i).value));
+    }
+
+    document.getElementById('netVSValues').value = netVSValues;
+
+    // To calculate total products quantity
+    var qty = document.getElementsByClassName("vsqty");
+    var tempQty = 0;
+    for(j=0; j<vsLength;j++){
+      tempQty += Number(vsqty[j].value);
+    }
+    document.getElementById('vsTotalProducts').value =  tempQty;
+
+    // To Calculate the discount amount
+    var originalPrice=0;
+    var discPrice=0;
+
+    for(i=0;i<vsLength;i++){
+      originalPrice += Number(document.getElementById('14actSubTotal_'+i).value);
+      discPrice += Number(document.getElementById('14tempTotal_'+i).value);
+    }
+    var discountedValue = originalPrice - discPrice;
+    document.getElementById('vsdiscountTotal').value = discountedValue.toFixed(2);
+    document.getElementById('vsActualPrice').value = originalPrice.toFixed(2);
+
+    calcOverallTotal();
+
+    }
+
+  function doMathS(i) {
+
+  var quantities = document.getElementsByClassName('sqty');
+  var sLength = document.getElementById('sLength').value;
+
+  // To calculate row wise subtotal and actual price
+  var numOne = document.getElementById('15priceValue_'+i).value;
+  var numTwo = quantities[i].value;
+  var numThree = document.getElementById('15actualValue_'+i).value;
+  var discValue = Math.round(Number(numOne) * Number(numTwo));
+  var actValue = Number(numThree) * Number(numTwo);
+  console.log("Act value :" + actValue);
+  document.getElementById('15tempTotal_'+i).value = discValue;
+  document.getElementById('15actSubTotal_'+i).value = actValue;
+
+  // To calculate the total amount of Sound Crackers
+
+  var netSValues = 0;
+  for(i=0; i<sLength;i++){
+    Math.round(netSValues += Number(document.getElementById('15tempTotal_'+i).value));
+  }
+
+  document.getElementById('netSValues').value = netSValues;
+
+  // To calculate total products quantity
+  var qty = document.getElementsByClassName("sqty");
+  var tempQty = 0;
+  for(j=0; j<sLength;j++){
+    tempQty += Number(sqty[j].value);
+  }
+  document.getElementById('sTotalProducts').value =  tempQty;
+
+  // To Calculate the discount amount
+  var originalPrice=0;
+  var discPrice=0;
+
+  for(i=0;i<sLength;i++){
+    originalPrice += Number(document.getElementById('15actSubTotal_'+i).value);
+    discPrice += Number(document.getElementById('15tempTotal_'+i).value);
+  }
+  var discountedValue = originalPrice - discPrice;
+  document.getElementById('sdiscountTotal').value = discountedValue.toFixed(2);
+  document.getElementById('sActualPrice').value = originalPrice.toFixed(2);
+
+  calcOverallTotal();
+
+  }
+
+  function doMathCHF(i) {
+
+  var quantities = document.getElementsByClassName('chfqty');
+  var chfLength = document.getElementById('chfLength').value;
+
+  // To calculate row wise subtotal and actual price
+  var numOne = document.getElementById('16priceValue_'+i).value;
+  var numTwo = quantities[i].value;
+  var numThree = document.getElementById('16actualValue_'+i).value;
+  var discValue = Math.round(Number(numOne) * Number(numTwo));
+  var actValue = Number(numThree) * Number(numTwo);
+  console.log("Act value :" + actValue);
+  document.getElementById('16tempTotal_'+i).value = discValue;
+  document.getElementById('16actSubTotal_'+i).value = actValue;
+
+  // To calculate the total amount of Sound Crackers
+
+  var netCHFValues = 0;
+  for(i=0; i<chfLength;i++){
+    Math.round(netCHFValues += Number(document.getElementById('16tempTotal_'+i).value));
+  }
+
+  document.getElementById('netCHFValues').value = netCHFValues;
+
+  // To calculate total products quantity
+  var qty = document.getElementsByClassName("chfqty");
+  var tempQty = 0;
+  for(j=0; j<chfLength;j++){
+    tempQty += Number(chfqty[j].value);
+  }
+  document.getElementById('chfTotalProducts').value =  tempQty;
+
+  // To Calculate the discount amount
+  var originalPrice=0;
+  var discPrice=0;
+
+  for(i=0;i<chfLength;i++){
+    originalPrice += Number(document.getElementById('16actSubTotal_'+i).value);
+    discPrice += Number(document.getElementById('16tempTotal_'+i).value);
+  }
+  var discountedValue = originalPrice - discPrice;
+  document.getElementById('chfdiscountTotal').value = discountedValue.toFixed(2);
+  document.getElementById('chfActualPrice').value = originalPrice.toFixed(2);
+
+  calcOverallTotal();
+
+  }
+
+  function doMathAF(i) {
+  
+  var quantities = document.getElementsByClassName('afqty');
+  var afLength = document.getElementById('afLength').value;
+
+  // To calculate row wise subtotal and actual price
+  var numOne = document.getElementById('17priceValue_'+i).value;
+  var numTwo = quantities[i].value;
+  var numThree = document.getElementById('17actualValue_'+i).value;
+  var discValue = Math.round(Number(numOne) * Number(numTwo));
+  var actValue = Number(numThree) * Number(numTwo);
+  console.log("Act value :" + actValue);
+  document.getElementById('17tempTotal_'+i).value = discValue;
+  document.getElementById('17actSubTotal_'+i).value = actValue;
+
+  // To calculate the total amount of Sound Crackers
+
+  var netAFValues = 0;
+  for(i=0; i<afLength;i++){
+    Math.round(netAFValues += Number(document.getElementById('17tempTotal_'+i).value));
+  }
+
+  document.getElementById('netAFValues').value = netAFValues;
+
+  // To calculate total products quantity
+  var qty = document.getElementsByClassName("afqty");
+  var tempQty = 0;
+  for(j=0; j<afLength;j++){
+    tempQty += Number(afqty[j].value);
+  }
+  document.getElementById('afTotalProducts').value =  tempQty;
+
+  // To Calculate the discount amount
+  var originalPrice=0;
+  var discPrice=0;
+
+  for(i=0;i<afLength;i++){
+    originalPrice += Number(document.getElementById('17actSubTotal_'+i).value);
+    discPrice += Number(document.getElementById('17tempTotal_'+i).value);
+  }
+  var discountedValue = originalPrice - discPrice;
+  
+  document.getElementById('afdiscountTotal').value = discountedValue.toFixed(2);
+  document.getElementById('afActualPrice').value = originalPrice.toFixed(2);
+
+  calcOverallTotal();
+
+  }
+
+  function doMathF3(i) {
+  
+  var quantities = document.getElementsByClassName('f3qty');
+  var f3Length = document.getElementById('f3Length').value;
+
+  // To calculate row wise subtotal and actual price
+  var numOne = document.getElementById('18priceValue_'+i).value;
+  var numTwo = quantities[i].value;
+  var numThree = document.getElementById('18actualValue_'+i).value;
+  var discValue = Math.round(Number(numOne) * Number(numTwo));
+  var actValue = Number(numThree) * Number(numTwo);
+  console.log("Act value :" + actValue);
+  document.getElementById('18tempTotal_'+i).value = discValue;
+  document.getElementById('18actSubTotal_'+i).value = actValue;
+
+  // To calculate the total amount of Sound Crackers
+
+  var netF3Values = 0;
+  for(i=0; i<f3Length;i++){
+    Math.round(netF3Values += Number(document.getElementById('18tempTotal_'+i).value));
+  }
+
+  document.getElementById('netF3Values').value = netF3Values;
+
+  // To calculate total products quantity
+  var qty = document.getElementsByClassName("f3qty");
+  var tempQty = 0;
+  for(j=0; j<f3Length;j++){
+    tempQty += Number(f3qty[j].value);
+  }
+  document.getElementById('f3TotalProducts').value =  tempQty;
+
+  // To Calculate the discount amount
+  var originalPrice=0;
+  var discPrice=0;
+
+  for(i=0;i<f3Length;i++){
+    originalPrice += Number(document.getElementById('18actSubTotal_'+i).value);
+    discPrice += Number(document.getElementById('18tempTotal_'+i).value);
+  }
+  var discountedValue = originalPrice - discPrice;
+  
+  document.getElementById('f3discountTotal').value = discountedValue.toFixed(2);
+  document.getElementById('f3ActualPrice').value = originalPrice.toFixed(2);
+
+  calcOverallTotal();
+
+  }
+
+  function doMathF35(i) {
+  
+    var quantities = document.getElementsByClassName('f35qty');
+    var f35Length = document.getElementById('f35Length').value;
+
+    // To calculate row wise subtotal and actual price
+    var numOne = document.getElementById('19priceValue_'+i).value;
+    var numTwo = quantities[i].value;
+    var numThree = document.getElementById('19actualValue_'+i).value;
+    var discValue = Math.round(Number(numOne) * Number(numTwo));
+    var actValue = Number(numThree) * Number(numTwo);
+    console.log("Act value :" + actValue);
+    document.getElementById('19tempTotal_'+i).value = discValue;
+    document.getElementById('19actSubTotal_'+i).value = actValue;
+
+    // To calculate the total amount of Sound Crackers
+
+    var netF35Values = 0;
+    for(i=0; i<f35Length;i++){
+      Math.round(netF35Values += Number(document.getElementById('19tempTotal_'+i).value));
+    }
+
+    document.getElementById('netF35Values').value = netF35Values;
+
+    // To calculate total products quantity
+    var qty = document.getElementsByClassName("f35qty");
+    var tempQty = 0;
+    for(j=0; j<f35Length;j++){
+      tempQty += Number(f35qty[j].value);
+    }
+    document.getElementById('f35TotalProducts').value =  tempQty;
+
+    // To Calculate the discount amount
+    var originalPrice=0;
+    var discPrice=0;
+
+    for(i=0;i<f35Length;i++){
+      originalPrice += Number(document.getElementById('19actSubTotal_'+i).value);
+      discPrice += Number(document.getElementById('19tempTotal_'+i).value);
+    }
+    var discountedValue = originalPrice - discPrice;
+    
+    document.getElementById('f35discountTotal').value = discountedValue.toFixed(2);
+    document.getElementById('f35ActualPrice').value = originalPrice.toFixed(2);
+
+    calcOverallTotal();
+
+    }
+
+  function doMathF4(i) {
+  
+    var quantities = document.getElementsByClassName('f4qty');
+    var f4Length = document.getElementById('f4Length').value;
+
+    // To calculate row wise subtotal and actual price
+    var numOne = document.getElementById('20priceValue_'+i).value;
+    var numTwo = quantities[i].value;
+    var numThree = document.getElementById('20actualValue_'+i).value;
+    var discValue = Math.round(Number(numOne) * Number(numTwo));
+    var actValue = Number(numThree) * Number(numTwo);
+    console.log("Act value :" + actValue);
+    document.getElementById('20tempTotal_'+i).value = discValue;
+    document.getElementById('20actSubTotal_'+i).value = actValue;
+
+    // To calculate the total amount of Sound Crackers
+
+    var netF4Values = 0;
+    for(i=0; i<f4Length;i++){
+      Math.round(netF4Values += Number(document.getElementById('20tempTotal_'+i).value));
+    }
+
+    document.getElementById('netF4Values').value = netF4Values;
+
+    // To calculate total products quantity
+    var qty = document.getElementsByClassName("f4qty");
+    var tempQty = 0;
+    for(j=0; j<f4Length;j++){
+      tempQty += Number(f4qty[j].value);
+    }
+    document.getElementById('f4TotalProducts').value =  tempQty;
+
+    // To Calculate the discount amount
+    var originalPrice=0;
+    var discPrice=0;
+
+    for(i=0;i<f4Length;i++){
+      originalPrice += Number(document.getElementById('20actSubTotal_'+i).value);
+      discPrice += Number(document.getElementById('20tempTotal_'+i).value);
+    }
+    var discountedValue = originalPrice - discPrice;
+    
+    document.getElementById('f4discountTotal').value = discountedValue.toFixed(2);
+    document.getElementById('f4ActualPrice').value = originalPrice.toFixed(2);
+
+    calcOverallTotal();
+
+    }
+
+  function doMathRS(i) {
+  
+  var quantities = document.getElementsByClassName('rsqty');
+  var rsLength = document.getElementById('rsLength').value;
+
+  // To calculate row wise subtotal and actual price
+  var numOne = document.getElementById('21priceValue_'+i).value;
+  var numTwo = quantities[i].value;
+  var numThree = document.getElementById('21actualValue_'+i).value;
+  var discValue = Math.round(Number(numOne) * Number(numTwo));
+  var actValue = Number(numThree) * Number(numTwo);
+  console.log("Act value :" + actValue);
+  document.getElementById('21tempTotal_'+i).value = discValue;
+  document.getElementById('21actSubTotal_'+i).value = actValue;
+
+  // To calculate the total amount of Sound Crackers
+
+  var netRSValues = 0;
+  for(i=0; i<rsLength;i++){
+    Math.round(netRSValues += Number(document.getElementById('21tempTotal_'+i).value));
+  }
+
+  document.getElementById('netRSValues').value = netRSValues;
+
+  // To calculate total products quantity
+  var qty = document.getElementsByClassName("rsqty");
+  var tempQty = 0;
+  for(j=0; j<rsLength;j++){
+    tempQty += Number(rsqty[j].value);
+  }
+  document.getElementById('rsTotalProducts').value =  tempQty;
+
+  // To Calculate the discount amount
+  var originalPrice=0;
+  var discPrice=0;
+
+  for(i=0;i<rsLength;i++){
+    originalPrice += Number(document.getElementById('21actSubTotal_'+i).value);
+    discPrice += Number(document.getElementById('21tempTotal_'+i).value);
+  }
+  var discountedValue = originalPrice - discPrice;
+  
+  document.getElementById('rsdiscountTotal').value = discountedValue.toFixed(2);
+  document.getElementById('rsActualPrice').value = originalPrice.toFixed(2);
+
+  calcOverallTotal();
+
+  }
+
+  function doMathNR(i) {
+  
+  var quantities = document.getElementsByClassName('nrqty');
+  var nrLength = document.getElementById('nrLength').value;
+
+  // To calculate row wise subtotal and actual price
+  var numOne = document.getElementById('22priceValue_'+i).value;
+  var numTwo = quantities[i].value;
+  var numThree = document.getElementById('22actualValue_'+i).value;
+  var discValue = Math.round(Number(numOne) * Number(numTwo));
+  var actValue = Number(numThree) * Number(numTwo);
+  console.log("Act value :" + actValue);
+  document.getElementById('22tempTotal_'+i).value = discValue;
+  document.getElementById('22actSubTotal_'+i).value = actValue;
+
+  // To calculate the total amount of Sound Crackers
+
+  var netNRValues = 0;
+  for(i=0; i<nrLength;i++){
+    Math.round(netNRValues += Number(document.getElementById('22tempTotal_'+i).value));
+  }
+
+  document.getElementById('netNRValues').value = netNRValues;
+
+  // To calculate total products quantity
+  var qty = document.getElementsByClassName("nrqty");
+  var tempQty = 0;
+  for(j=0; j<nrLength;j++){
+    tempQty += Number(nrqty[j].value);
+  }
+  document.getElementById('nrTotalProducts').value =  tempQty;
+
+  // To Calculate the discount amount
+  var originalPrice=0;
+  var discPrice=0;
+
+  for(i=0;i<nrLength;i++){
+    originalPrice += Number(document.getElementById('22actSubTotal_'+i).value);
+    discPrice += Number(document.getElementById('22tempTotal_'+i).value);
+  }
+  var discountedValue = originalPrice - discPrice;
+  
+  document.getElementById('nrdiscountTotal').value = discountedValue.toFixed(2);
+  document.getElementById('nrActualPrice').value = originalPrice.toFixed(2);
+
+  calcOverallTotal();
+
+  }
+
+  function doMathGB(i) {
+  
+  var quantities = document.getElementsByClassName('gbqty');
+  var gbLength = document.getElementById('gbLength').value;
+
+  // To calculate row wise subtotal and actual price
+  var numOne = document.getElementById('23priceValue_'+i).value;
+  var numTwo = quantities[i].value;
+  var numThree = document.getElementById('23actualValue_'+i).value;
+  var discValue = Math.round(Number(numOne) * Number(numTwo));
+  var actValue = Number(numThree) * Number(numTwo);
+  console.log("Act value :" + actValue);
+  document.getElementById('23tempTotal_'+i).value = discValue;
+  document.getElementById('23actSubTotal_'+i).value = actValue;
+
+  // To calculate the total amount of Sound Crackers
+
+  var netGBValues = 0;
+  for(i=0; i<gbLength;i++){
+    Math.round(netGBValues += Number(document.getElementById('23tempTotal_'+i).value));
+  }
+
+  document.getElementById('netGBValues').value = netGBValues;
+
+  // To calculate total products quantity
+  var qty = document.getElementsByClassName("gbqty");
+  var tempQty = 0;
+  for(j=0; j<gbLength;j++){
+    tempQty += Number(gbqty[j].value);
+  }
+  document.getElementById('gbTotalProducts').value =  tempQty;
+
+  // To Calculate the discount amount
+  var originalPrice=0;
+  var discPrice=0;
+
+  for(i=0;i<gbLength;i++){
+    originalPrice += Number(document.getElementById('23actSubTotal_'+i).value);
+    discPrice += Number(document.getElementById('23tempTotal_'+i).value);
+  }
+  var discountedValue = originalPrice - discPrice;
+  
+  document.getElementById('gbdiscountTotal').value = discountedValue.toFixed(2);
+  document.getElementById('gbActualPrice').value = originalPrice.toFixed(2);
+
+  calcOverallTotal();
+
+  }
+
+  function doMathSE(i) {
+  
+  var quantities = document.getElementsByClassName('seqty');
+  var seLength = document.getElementById('seLength').value;
+
+  // To calculate row wise subtotal and actual price
+  var numOne = document.getElementById('24priceValue_'+i).value;
+  var numTwo = quantities[i].value;
+  var numThree = document.getElementById('24actualValue_'+i).value;
+  var discValue = Math.round(Number(numOne) * Number(numTwo));
+  var actValue = Number(numThree) * Number(numTwo);
+  console.log("Act value :" + actValue);
+  document.getElementById('24tempTotal_'+i).value = discValue;
+  document.getElementById('24actSubTotal_'+i).value = actValue;
+
+  // To calculate the total amount of Sound Crackers
+
+  var netSEValues = 0;
+  for(i=0; i<seLength;i++){
+    Math.round(netSEValues += Number(document.getElementById('24tempTotal_'+i).value));
+  }
+
+  document.getElementById('netSEValues').value = netSEValues;
+
+  // To calculate total products quantity
+  var qty = document.getElementsByClassName("seqty");
+  var tempQty = 0;
+  for(j=0; j<seLength;j++){
+    tempQty += Number(seqty[j].value);
+  }
+  document.getElementById('seTotalProducts').value =  tempQty;
+
+  // To Calculate the discount amount
+  var originalPrice=0;
+  var discPrice=0;
+
+  for(i=0;i<seLength;i++){
+    originalPrice += Number(document.getElementById('24actSubTotal_'+i).value);
+    discPrice += Number(document.getElementById('24tempTotal_'+i).value);
+  }
+  var discountedValue = originalPrice - discPrice;
+  
+  document.getElementById('sediscountTotal').value = discountedValue.toFixed(2);
+  document.getElementById('seActualPrice').value = originalPrice.toFixed(2);
+
+  calcOverallTotal();
+
+  }
+
+    
+
+  function calcOverallTotal(){
+
+    // Actual Bill Value without Discount
+    var scActualPriceTotal = document.getElementById('scActualPrice').value;
+    var gcActualPriceTotal = document.getElementById('gcActualPrice').value;
+    var fpActualPriceTotal = document.getElementById('fpActualPrice').value;
+    var bcActualPriceTotal = document.getElementById('bcActualPrice').value;
+    var lcActualPriceTotal = document.getElementById('lcActualPrice').value;
+    var lsActualPriceTotal = document.getElementById('lsActualPrice').value;
+    var boActualPriceTotal = document.getElementById('boActualPrice').value;
+    var roActualPriceTotal = document.getElementById('roActualPrice').value;
+    var tsActualPriceTotal = document.getElementById('tsActualPrice').value;
+    var tfActualPriceTotal = document.getElementById('tfActualPrice').value;
+    var nnActualPriceTotal = document.getElementById('nnActualPrice').value;
+    var shcActualPriceTotal = document.getElementById('shcActualPrice').value;
+    var hcActualPriceTotal = document.getElementById('hcActualPrice').value;
+    var vsActualPriceTotal = document.getElementById('vsActualPrice').value;
+    var sActualPriceTotal = document.getElementById('sActualPrice').value;
+    var chfActualPriceTotal = document.getElementById('chfActualPrice').value;
+    var afActualPriceTotal = document.getElementById('afActualPrice').value;
+    var f3ActualPriceTotal = document.getElementById('f3ActualPrice').value;
+    var f35ActualPriceTotal = document.getElementById('f35ActualPrice').value;
+    var f4ActualPriceTotal = document.getElementById('f4ActualPrice').value;
+    var rsActualPriceTotal = document.getElementById('rsActualPrice').value;
+    var nrActualPriceTotal = document.getElementById('nrActualPrice').value;
+    var gbActualPriceTotal = document.getElementById('gbActualPrice').value;
+    var seActualPriceTotal = document.getElementById('seActualPrice').value;
+
+    var overallActTotalVal = 0 + Number(scActualPriceTotal) + Number(gcActualPriceTotal) + Number(fpActualPriceTotal) + Number(bcActualPriceTotal) + Number(lcActualPriceTotal) + Number(lsActualPriceTotal)  + Number(boActualPriceTotal) + Number(roActualPriceTotal)
+    + Number(tsActualPriceTotal) + Number(tfActualPriceTotal) + Number(nnActualPriceTotal)  + Number(shcActualPriceTotal) + Number(hcActualPriceTotal) + Number(vsActualPriceTotal) + Number(sActualPriceTotal) + Number(chfActualPriceTotal) + Number(afActualPriceTotal)
+    + Number(f3ActualPriceTotal) + Number(f35ActualPriceTotal) + Number(f4ActualPriceTotal) + Number(rsActualPriceTotal) + Number(nrActualPriceTotal) + Number(gbActualPriceTotal) + Number(seActualPriceTotal);
+
+    document.getElementById("overallTotall").innerHTML = "&#8377;" + overallActTotalVal
+
+
+    // Total Bill Value
+    var scValue = document.getElementById('netSCValues').value;
+    var gcValue = document.getElementById('netGCValues').value;
+    var fpValue = document.getElementById('netFPValues').value;
+    var bcValue = document.getElementById('netBCValues').value;
+    var lcValue = document.getElementById('netLCValues').value;
+    var lsValue = document.getElementById('netLSValues').value;
+    var boValue = document.getElementById('netBOValues').value;
+    var roValue = document.getElementById('netROValues').value;
+    var tsValue = document.getElementById('netTSValues').value;
+    var tfValue = document.getElementById('netTFValues').value;
+    var nnValue = document.getElementById('netNNValues').value;
+    var shcValue = document.getElementById('netSHCValues').value;
+    var hcValue = document.getElementById('netHCValues').value;
+    var vsValue = document.getElementById('netVSValues').value;
+    var sValue = document.getElementById('netSValues').value;
+    var chfValue = document.getElementById('netCHFValues').value;
+    var afValue = document.getElementById('netAFValues').value;
+    var f3Value = document.getElementById('netF3Values').value;
+    var f35Value = document.getElementById('netF35Values').value;
+    var f4Value = document.getElementById('netF4Values').value;
+    var rsValue = document.getElementById('netRSValues').value;
+    var nrValue = document.getElementById('netNRValues').value;
+    var gbValue = document.getElementById('netGBValues').value;
+    var seValue = document.getElementById('netSEValues').value;
+    
+    var finalBillVal = 0 + Number(scValue) + Number(gcValue) + Number(fpValue) + Number(bcValue) + Number(lcValue) + Number(lsValue) + Number(boValue) + Number(roValue)
+    + Number(tsValue) + Number(tfValue) + Number(nnValue) + Number(shcValue) + Number(hcValue) + Number(vsValue) + Number(sValue) + Number(chfValue) + Number(afValue)
+    + Number(f3Value) + Number(f35Value) + Number(f4Value) + Number(rsValue) + Number(nrValue) + Number(gbValue) + Number(seValue);
+
+    document.getElementById("overallTotal").innerHTML = "&#8377;" + finalBillVal 
+    document.getElementById("subTotall").innerHTML = "&#8377;" + finalBillVal
+
+    // Total Products
+    var scTotalProducts = document.getElementById('scTotalProducts').value
+    var gcTotalProducts = document.getElementById('gcTotalProducts').value
+    var fpTotalProducts = document.getElementById('fpTotalProducts').value
+    var bcTotalProducts = document.getElementById('bcTotalProducts').value
+    var lcTotalProducts = document.getElementById('lcTotalProducts').value
+    var lsTotalProducts = document.getElementById('lsTotalProducts').value
+    var boTotalProducts = document.getElementById('boTotalProducts').value
+    var roTotalProducts = document.getElementById('roTotalProducts').value
+    var tsTotalProducts = document.getElementById('tsTotalProducts').value
+    var tfTotalProducts = document.getElementById('tfTotalProducts').value
+    var nnTotalProducts = document.getElementById('nnTotalProducts').value
+    var shcTotalProducts = document.getElementById('shcTotalProducts').value
+    var hcTotalProducts = document.getElementById('hcTotalProducts').value
+    var vsTotalProducts = document.getElementById('vsTotalProducts').value
+    var sTotalProducts = document.getElementById('sTotalProducts').value
+    var chfTotalProducts = document.getElementById('chfTotalProducts').value
+    var afTotalProducts = document.getElementById('afTotalProducts').value
+    var f3TotalProducts = document.getElementById('f3TotalProducts').value
+    var f35TotalProducts = document.getElementById('f35TotalProducts').value
+    var f4TotalProducts = document.getElementById('f4TotalProducts').value
+    var rsTotalProducts = document.getElementById('rsTotalProducts').value
+    var nrTotalProducts = document.getElementById('nrTotalProducts').value
+    var gbTotalProducts = document.getElementById('gbTotalProducts').value
+    var seTotalProducts = document.getElementById('seTotalProducts').value
+
+    var finalProducts =  0 + Number(scTotalProducts) + Number(gcTotalProducts) + Number(fpTotalProducts) + Number(bcTotalProducts) + Number(lcTotalProducts) + Number(lsTotalProducts) + Number(boTotalProducts) + Number(roTotalProducts)
+    + Number(tsTotalProducts) + Number(tfTotalProducts) + Number(nnTotalProducts) + Number(shcTotalProducts) + Number(hcTotalProducts) + Number(vsTotalProducts) + Number(sTotalProducts) + Number(chfTotalProducts) + Number(afTotalProducts)
+    + Number(f3TotalProducts) + Number(f35TotalProducts) + Number(f4TotalProducts) + Number(rsTotalProducts) + Number(nrTotalProducts) + Number(gbTotalProducts) + Number(seTotalProducts);
+
+    document.getElementById('totalProducts').innerHTML = finalProducts
+
+    // Discount Value or Savings Value
+    var scDiscTotal = document.getElementById("scdiscountTotal").value;
+    var gcDiscTotal = document.getElementById("gcdiscountTotal").value;
+    var fpDiscTotal = document.getElementById("fpdiscountTotal").value;
+    var bcDiscTotal = document.getElementById("bcdiscountTotal").value;
+    var lcDiscTotal = document.getElementById("lcdiscountTotal").value;
+    var lsDiscTotal = document.getElementById("lsdiscountTotal").value;
+    var boDiscTotal = document.getElementById("bodiscountTotal").value;
+    var roDiscTotal = document.getElementById("rodiscountTotal").value;
+    var tsDiscTotal = document.getElementById("tsdiscountTotal").value;
+    var tfDiscTotal = document.getElementById("tfdiscountTotal").value;
+    var nnDiscTotal = document.getElementById("nndiscountTotal").value;
+    var shcDiscTotal = document.getElementById("shcdiscountTotal").value;
+    var hcDiscTotal = document.getElementById("hcdiscountTotal").value;
+    var vsDiscTotal = document.getElementById("vsdiscountTotal").value;
+    var sDiscTotal = document.getElementById("sdiscountTotal").value;
+    var chfDiscTotal = document.getElementById("chfdiscountTotal").value;
+    var afDiscTotal = document.getElementById("afdiscountTotal").value;
+    var f3DiscTotal = document.getElementById("f3discountTotal").value;
+    var f35DiscTotal = document.getElementById("f35discountTotal").value;
+    var f4DiscTotal = document.getElementById("f4discountTotal").value;
+    var rsDiscTotal = document.getElementById("rsdiscountTotal").value;
+    var nrDiscTotal = document.getElementById("nrdiscountTotal").value;
+    var gbDiscTotal = document.getElementById("gbdiscountTotal").value;
+    var seDiscTotal = document.getElementById("sediscountTotal").value;
+
+    var finalDiscTotal = 0 + Number(scDiscTotal) + Number(gcDiscTotal) + Number(fpDiscTotal) + Number(bcDiscTotal) + Number(lcDiscTotal) + Number(lsDiscTotal) + Number(boDiscTotal) + Number(roDiscTotal)
+    + Number(tsDiscTotal) + Number(tfDiscTotal) + Number(nnDiscTotal) + Number(shcDiscTotal) + Number(hcDiscTotal) + Number(vsDiscTotal) + Number(sDiscTotal) + Number(chfDiscTotal) + Number(afDiscTotal)
+    + Number(f3DiscTotal) + Number(f35DiscTotal) + Number(f4DiscTotal) + Number(rsDiscTotal) + Number(nrDiscTotal) + Number(gbDiscTotal) + Number(seDiscTotal);
+
+    document.getElementById('discountTotal').innerHTML = "&#8377;" + finalDiscTotal
+    document.getElementById('discountTotall').innerHTML ="&#8377;" + finalDiscTotal
+
+    var pckCharg = finalBillVal * 0.03;
+    document.getElementById('pckCharge').innerHTML="&#8377;" + pckCharg.toFixed(2);
+    document.getElementById('pckChargeVal').value= pckCharg.toFixed(2);
+    
+    var finalBillValue = finalBillVal + pckCharg;
+    document.getElementById('finalBillValue').innerHTML="&#8377;" + Math.round(finalBillValue);
+    document.getElementById('finalBillValuee').value= Math.round(finalBillValue);
+
+    if(finalBillValue >= 1000){
+      document.getElementById('submitButton').disabled = false;
+    }
+    else {
+      document.getElementById('submitButton').disabled = true;
+    }
+    
+  }
+  
+
+
+    
+</script>

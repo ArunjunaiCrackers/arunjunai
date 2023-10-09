@@ -65,17 +65,193 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Arunjunai' });
 });
 
+// router.get('/shop', function(req, res, next) {
+//   Products.find().sort({code:1})
+//   .then(result=>{
+//     let discountChange = [];
+//     res.render('shop', { title: 'Shop | Arunjunai', products:result, prodLength:result.length });
+//   }).catch(err=>{
+//     console.log(err);
+//     return res.render('/');
+//   })
+  
+// });
+
 router.get('/shop', function(req, res, next) {
-  Products.find().sort({code:1})
-  .then(result=>{
-    let discountChange = [];
-    res.render('shop', { title: 'Shop | Arunjunai', products:result, prodLength:result.length });
-  }).catch(err=>{
-    console.log(err);
-    return res.render('/');
+  
+  Products.find({type:"SOUND CRACKERS"}).sort({code:1})
+  .then(result1=>{
+
+    Products.find({type:"GROUND CHAKKAR"}).sort({code:1})
+    .then(result2=>{
+      
+      Products.find({type:"FLOWER POTS"}).sort({code:1})
+        .then(result3=>{
+
+         Products.find({type:"BIJILI CRACKERS"}).sort({code:1})
+          .then(result4=>{
+
+           Products.find({type:"LITTLE CRACKERS"}).sort({code:1})
+            .then(result5=>{
+
+              Products.find({type:"LIGHTING SERIES"}).sort({code:1})
+               .then(result6=>{
+
+                Products.find({type:"BOMBS"}).sort({code:1})
+                 .then(result7=>{
+
+                  Products.find({type:"ROCKETS"}).sort({code:1})
+                   .then(result8=>{
+
+                    Products.find({type:"TWINKLING STAR"}).sort({code:1})
+                     .then(result9=>{
+
+                        Products.find({type:"TIN FOUNTAIN"}).sort({code:1})
+                         .then(result10=>{
+
+                          Products.find({type:"NEW NOVELTIES"}).sort({code:1})
+                            .then(result11=>{
+
+                              Products.find({type:"SHOWER CRACKERS"}).sort({code:1})
+                                .then(result12=>{
+
+                                  Products.find({type:"HANDLE CRACKERS"}).sort({code:1})
+                                  .then(result13=>{
+
+                                    Products.find({type:"V SERIES"}).sort({code:1})
+                                    .then(result14=>{
+
+                                      Products.find({type:"SPARKLERS"}).sort({code:1})
+                                      .then(result15=>{
+
+                                        Products.find({type:"CHOTA FANCY"}).sort({code:1})
+                                          .then(result16=>{
+
+                                            Products.find({type:"ARIAL FANCY"}).sort({code:1})
+                                              .then(result17=>{
+
+                                                Products.find({type:"3 FANCY"}).sort({code:1})
+                                                  .then(result18=>{
+
+                                                    Products.find({type:"3½ FANCY"}).sort({code:1})
+                                                      .then(result19=>{
+
+                                                        Products.find({type:"4 FANCY"}).sort({code:1})
+                                                          .then(result20=>{
+
+                                                            Products.find({type:"REPEATING SHOTS"}).sort({code:1})
+                                                              .then(result21=>{
+
+                                                                  Products.find({type:"NET RATE"}).sort({code:1})
+                                                                    .then(result22=>{
+
+                                                                      Products.find({type:"GIFT BOX"}).sort({code:1})
+                                                                        .then(result23=>{
+
+                                                                          Products.find({type:"Select the Category"}).sort({code:1})
+                                                                            .then(result24=>{
+
+                                                                              res.render('shop1', 
+                                                                { 
+                                                                title: 'Shop | Arunjunai', 
+                                                                sc:result1,
+                                                                scLength:result1.length, 
+                                                                gc:result2,
+                                                                gcLength:result2.length,
+                                                                fp:result3,
+                                                                fpLength:result3.length,
+                                                                bc:result4,
+                                                                bcLength:result4.length,
+                                                                lc:result5,
+                                                                lcLength:result5.length ,
+                                                                ls:result6,
+                                                                lsLength:result6.length,
+                                                                bo:result7,
+                                                                boLength:result7.length,
+                                                                ro:result8,
+                                                                roLength:result8.length,
+                                                                ts:result9,
+                                                                tsLength:result9.length,
+                                                                tf:result10,
+                                                                tfLength:result10.length,
+                                                                nn:result11,
+                                                                nnLength:result11.length,
+                                                                shc:result12,
+                                                                shcLength:result12.length,
+                                                                hc:result13,
+                                                                hcLength:result13.length,
+                                                                vs:result14,
+                                                                vsLength:result14.length,
+                                                                s:result15,
+                                                                sLength:result15.length,
+                                                                chf:result16,
+                                                                chfLength:result16.length,
+                                                                af:result17,
+                                                                afLength:result17.length,
+                                                                f3:result18,
+                                                                f3Length:result18.length,
+                                                                f35:result19,
+                                                                f35Length:result19.length,
+                                                                f4:result20,
+                                                                f4Length:result20.length,
+                                                                rs:result21,
+                                                                rsLength:result21.length,
+                                                                nr:result22,
+                                                                nrLength:result22.length,
+                                                                gb:result23,
+                                                                gbLength:result23.length,
+                                                                se:result24,
+                                                                seLength:result24.length,
+                                                                
+                                                              } )
+                                          
+                                                                            })
+                                      
+                                                                        })
+                                  
+                                                                    })
+                            
+                                                              })
+                        
+                                                          })
+                    
+                                                      })
+                
+                                                  })
+            
+                                              })
+        
+                                            })
+                                        
+    
+                                        })
+  
+                                      })
+ 
+                                    })
+                                  
+                                  })
+                              
+                              })
+                
+                         })
+                     })
+                   })
+                 })
+
+               })
+
+            })
+          })
+
+        })
+      
+    })
+
   })
   
 });
+
 
 router.get('/safetyTips', function(req,res,next){
   res.render('safetyTips', {title: 'Safety Tips | Arunjunai Traders'});
@@ -159,9 +335,9 @@ if(errr){
   const mainOptions = {
     from: '"Arunjunai - Order Estimation" arunjunaicrackers@gmail.com',
     to: [
-      // { name: "Myself", address: "thamarayan@gmail.com" },
+      { name: "Myself", address: "thamarayan@gmail.com" },
       { name: "Client", address: clientEmail },
-      {name: "Prem", address:"premanandhshy89@gmail.com"}
+      // {name: "Prem", address:"premanandhshy89@gmail.com"}
     ],
     subject: 'New Order Estimation',
     html: data
